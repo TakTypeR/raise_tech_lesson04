@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--DTD:Document type Definition(文書型の定義):使用出来るタグや属性等の情報の定義-->
+<!--Mapper.xmlはjava側のinterfaceと同一パッケージ内に配置する-->
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.raise_tech_lesson04.mapper.UserInfoMapper">
+    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
     <select id="selectAll" resultType="com.example.raise_tech_lesson04.entity.UserInfo">
+        <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
         SELECT * FROM userinfo.userinfo_table;
     </select>
 </mapper>

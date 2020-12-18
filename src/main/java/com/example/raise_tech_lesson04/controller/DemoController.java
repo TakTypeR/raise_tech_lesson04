@@ -11,12 +11,15 @@ import java.util.List;
 
 @Controller
 public class DemoController {
+    //@Autowired合致するオブジェクトを探して自動生成してくれる
     @Autowired
     UserInfoMapper userInfoMapper;
 
     @RequestMapping
     public  String index(Model iModel){
+        //DBからデータ取得。mapper.xmlで関連付けられたSQLが呼ばれる
         List<UserInfo> list = userInfoMapper.selectAll();
+        //対応するresourceファイルから参照するために、値を登録
         iModel.addAttribute("userInfo", list);
         return "index";
     }

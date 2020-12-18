@@ -6,12 +6,17 @@
 </head>
 <body>
     <table border="1">
+        <!--tr(table row):表の行部分を指定<tr>-</tr>で1行-->
         <tr>
+            <!--th(table header):表のみだし、タイトル指定-->
             <th>ＩＤ</th>
             <th>名前</th>
             <th>性別</th>
         </tr>
+        <!--th:each="var: ${}"/ループタグ-->
+        <!--${}:EL式によるオブジェクト参照 ${式}:${10*2}->20-->
         <tr th:each="info: ${userInfo}">
+            <!--td(table data):表の内容を指定。-->
             <td th:text="${info.id}"></td>
             <td th:text="${info.name}"></td>
             <td th:text="${info.sex}"></td>
