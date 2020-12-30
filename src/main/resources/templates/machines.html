@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Machines</title>
+</head>
+<body>
+<table border="1">
+    <!--tr(table row):表の行部分を指定<tr>-</tr>で1行-->
+    <tr>
+        <!--th(table header):表のみだし、タイトル指定-->
+        <th>ＩＤ</th>
+        <th>プラットフォーム</th>
+        <th>ホスト名</th>
+        <th>所有者</th>
+    </tr>
+    <!--th:each="var: ${}"/ループタグ-->
+    <!--${}:EL式によるオブジェクト参照 ${式}:${10*2}->20-->
+    <tr th:each="info: ${machineInfo}">
+        <!--td(table data):表の内容を指定。-->
+        <td th:text="${info.id}"></td>
+        <td th:text="${info.platform}"></td>
+        <td th:text="${info.host_name}"></td>
+        <td th:text="${info.owner}"></td>
+    </tr>
+</table>
+</body>
+</html>
