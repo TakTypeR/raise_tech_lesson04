@@ -23,6 +23,11 @@ public class MachinesController {
         List<MachineInfo> mList = machineInfoMapper.selectAll();
         //対応するresourceファイルから参照するために、値を登録
         iModel.addAttribute("machineInfo", mList);
+
+        //SQLをコールしても良いが、上記のlistのサイズから分かるのでカット
+        //int num = machineInfoMapper.numOfMachines();
+        iModel.addAttribute("numOfMachines", mList.size());
+
         return "machines";
     }
 }

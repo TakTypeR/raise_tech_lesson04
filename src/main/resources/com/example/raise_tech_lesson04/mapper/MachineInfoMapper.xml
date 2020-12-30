@@ -5,8 +5,13 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.raise_tech_lesson04.mapper.MachineInfoMapper">
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
+    <!--selectAll:全機材データの取得-->
     <select id="selectAll" resultType="com.example.raise_tech_lesson04.entity.MachineInfo">
         <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
         SELECT * FROM pcs;
+    </select>
+    <!--numOfMachines:登録機材数の取得-->
+    <select id="numOfMachines" resultType="_int">
+        SELECT COUNT(*) FROM pcs;
     </select>
 </mapper>

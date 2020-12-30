@@ -12,6 +12,8 @@
     <title>Machines</title>
 </head>
 <body>
+<!--textに文字列を埋め込む場合は | or 'で囲む-->
+<h2 th:text="|機材リスト(${numOfMachines})|">Machine List</h2>
 <!--Bootstrapを使う時は、classに名前を指定。複数の場合は空白区切り-->
 <table class="table table-bordered table-striped table-condensed">
     <!--tr(table row):表の行部分を指定<tr>-</tr>で1行-->
