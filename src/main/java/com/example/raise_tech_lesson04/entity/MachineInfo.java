@@ -6,6 +6,7 @@ import lombok.Data;
 public class MachineInfo {
     private String id;
     private String platform;
+    //DBのcolumnに名前を合わせる
     private String host_name;
     private String owner;
 }
