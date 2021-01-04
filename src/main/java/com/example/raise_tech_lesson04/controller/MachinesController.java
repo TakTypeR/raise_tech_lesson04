@@ -6,6 +6,8 @@ import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -17,6 +19,7 @@ public class MachinesController {
     @Autowired
     MachineInfoMapper machineInfoMapper;
 
+    //機材リストメインページ
     @RequestMapping("/machines")
     public  String machines(Model iModel){
         //DBからデータ取得。mapper.xmlで関連付けられたSQLが呼ばれる
@@ -29,5 +32,14 @@ public class MachinesController {
         iModel.addAttribute("numOfMachines", mList.size());
 
         return "machines";
+    }
+
+    //machines.htmlのhrefに対する受け
+    @GetMapping("/delete/{id}")
+    // @PathVariable: URLに含まれるパラメータを取得する
+    public String DeleteMachine(@PathVariable("id") int id)
+    {
+        //更新したＤＢで持って、同ページを再表示
+        return "redirect:/machines";
     }
 }
