@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MachineInfoMapper {
     //メソッド名はmapper.xmlのidと一致している事
     List<MachineInfo> selectAll();
+    void deleteById( int id );
 
     int numOfMachines();
 }

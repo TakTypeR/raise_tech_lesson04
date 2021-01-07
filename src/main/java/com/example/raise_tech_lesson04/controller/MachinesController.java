@@ -40,6 +40,7 @@ public class MachinesController {
     public String DeleteMachine(@PathVariable("id") int id)
     {
         //更新したＤＢで持って、同ページを再表示
+        machineInfoMapper.deleteById(id);
         return "redirect:/machines";
     }
 }
