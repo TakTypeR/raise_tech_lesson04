@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <!--Bootstrapの設定/html, cssベースのレスポンシブデザインテンプレート-->
     <!--レスポンシブ:各デバイスに合わせてサイズ・配置を自動調整する-->
-    <link th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}" rel="stylesheet"><link>
+    <!--pom.xmlにwebjars-locatorを追加すると、/bootstrap/4.5.3/cssの様なバージョン表記が不要-->
+    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"><link>
     <!--Bootstrap内でjQueryを参照しているので、jQueryを先にロード-->
-    <script th:src="@{/webjars/jquery/3.5.1/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/4.5.3/js/bootstrap.min.js}"><</script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"><</script>
 
     <title>Machines</title>
 </head>
