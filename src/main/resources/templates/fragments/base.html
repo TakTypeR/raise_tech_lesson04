@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<!--各htmlで読み込む共通定義 fragment名でブロックごとに読み込み可能-->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!---->
+    <meta charset="UTF-8">
+    <th:block th:fragment="header">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Project management</title>
+        <!--Bootstrapの設定/html, cssベースのレスポンシブデザインテンプレート-->
+        <!--レスポンシブ:各デバイスに合わせてサイズ・配置を自動調整する-->
+        <!--pom.xmlにwebjars-locatorを追加すると、/bootstrap/4.5.3/cssの様なバージョン表記が不要-->
+        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"><link>
+        <!--Bootstrap内でjQueryを参照しているので、jQueryを先にロード-->
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"><</script>
+    </th:block>
+</head>
+<body>
+
+</body>
+</html>

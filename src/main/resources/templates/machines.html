@@ -2,15 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--Bootstrapの設定/html, cssベースのレスポンシブデザインテンプレート-->
-    <!--レスポンシブ:各デバイスに合わせてサイズ・配置を自動調整する-->
-    <!--pom.xmlにwebjars-locatorを追加すると、/bootstrap/4.5.3/cssの様なバージョン表記が不要-->
-    <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"><link>
-    <!--Bootstrap内でjQueryを参照しているので、jQueryを先にロード-->
-    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"><</script>
-
-    <title>Machines</title>
+    <!--共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
+    <th:block th:insert="fragments/base::header"></th:block>
 </head>
 <body>
 <!--textに文字列を埋め込む場合は | or 'で囲む-->
