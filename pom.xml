@@ -65,8 +65,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap</artifactId>
-			<version>4.5.3</version>
+			<artifactId>startbootstrap-sb-admin-2</artifactId>
+			<version>4.0.6</version>
 		</dependency>
 		<dependency>
 			<!--locator:webjars(bootstrap, jqueryのバージョンを自動解決する)-->

@@ -7,16 +7,27 @@
     <th:block th:fragment="header">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Project management</title>
+
         <!--Bootstrapの設定/html, cssベースのレスポンシブデザインテンプレート-->
         <!--レスポンシブ:各デバイスに合わせてサイズ・配置を自動調整する-->
         <!--pom.xmlにwebjars-locatorを追加すると、/bootstrap/4.5.3/cssの様なバージョン表記が不要-->
-        <link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"><link>
-        <!--Bootstrap内でjQueryを参照しているので、jQueryを先にロード-->
-        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"><</script>
+        <!--<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"><link>-->
+        <!--link:別ファイルやページを関連付ける。head内に書く-->
+        <link rel="stylesheet" th:href="@{/webjars/font-awesome/css/all.min.css}">
+        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"><link>
+        <link rel="stylesheet" th:href="@{/webjars/startbootstrap-sb-admin-2/css/sb-admin-2.min.css}">
+
     </th:block>
 </head>
 <body>
-
+    <!--Requested JS-->
+    <th:block th:fragment="scripts">
+        <!--Bootstrap内でjQueryを参照しているので、jQueryを先にロード-->
+        <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+        <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+        <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+        <script th:src="@{/webjars/startbootstrap-sb-admin-2/js/sb-admin-2.min.js}"></script>
+        <script th:src="@{/webjars/chartjs/Chart.min.js}"></script>
+    </th:block>
 </body>
 </html>
