@@ -5,48 +5,78 @@
     <!--共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
-<body>
+<body id="page-top">
     <!--page wrapper-->
     <!-- 説明:https://coliss.com/articles/build-websites/operation/css/styling-layout-wrappers-in-css.html -->
     <div id="wrapper"></div>
         <th:block th:insert="fragments/sidebar::sidebar"></th:block>
-        <!--textに文字列を埋め込む場合は | or 'で囲む-->
-        <h2 th:text="|機材リスト(${numOfMachines})|">Machine List</h2>
-        <div th:if="${machineInfo.size()==0}">
-            該当データがありません
-        </div>
 
-        <!--Bootstrapを使う時は、classに名前を指定。複数の場合は空白区切り-->
-        <table class="table table-bordered table-striped table-condensed" th:if="${machineInfo.size()>0}">
-            <!--tr(table row):表の行部分を指定<tr>-</tr>で1行-->
-            <tr>
-                <!--th(table header):表のみだし、タイトル指定-->
-                <th>ＩＤ</th>
-                <th>プラットフォーム</th>
-                <th>ホスト名</th>
-                <th>所有者</th>
-                <th></th>
-            </tr>
-            <!--th:each="var: ${}"/ループタグ-->
-            <!--${}:EL式によるオブジェクト参照 ${式}:${10*2}->20-->
-            <!--th:object以下で*を変数のショートカットとして利用可能-->
-            <tr th:each="info: ${machineInfo}" th:object="${info}">
-                <!--td(table data):表の内容を指定。-->
-                <td th:text="*{id}"></td>
-                <td th:text="*{platform}"></td>
-                <td th:text="*{host_name}"></td>
-                <td th:text="*{owner}"></td>
-                <!--各列に編集、削除ボタンの表示-->
-                <td>
-                    <a class="btn btn-primary btn-icon-split" th:href="@{/edit/{id}(id=*{id})}">
-                        <span class="text">Edit</span>
-                    </a>
-                    <a class="btn btn-danger btn-icon-split" th:href="@{/delete/{id}(id=*{id})}">
-                        <span class="text">Delete</span>
-                    </a>
-                </td>
-            </tr>
-        </table>
+        <!--main-->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+
+                    <!--Data tables-->
+                    <div class="card shadow my-4">
+                        <div class="card-header py-3">
+                            <!--textに文字列を埋め込む場合は | or 'で囲む-->
+                            <h6 class="m-0 font-weight-bold text-primary" th:text="|機材リスト(${numOfMachines})|">
+                                Machine List
+                            </h6>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <div th:if="${machineInfo.size()==0}">
+                                    該当データがありません
+                                </div>
+                                <!--Bootstrapを使う時は、classに名前を指定。複数の場合は空白区切り-->
+                                <table class="table table-bordered table-striped table-condensed"
+                                       th:if="${machineInfo.size()>0}">
+
+                                    <!--thread: 「table header」表の行（水平方向）をグループ化するタグ-->
+                                    <thead>
+                                        <!--tr(table row):表の行部分を指定<tr>-</tr>で1行-->
+                                        <tr>
+                                            <!--th(table header):表のみだし、タイトル指定-->
+                                            <th>ＩＤ</th>
+                                            <th>プラットフォーム</th>
+                                            <th>ホスト名</th>
+                                            <th>所有者</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <!--tbody: 表の行（水平方向）をグループ化するタグ-->
+                                    <tbody>
+                                        <!--th:each="var: ${}"/ループタグ-->
+                                        <!--${}:EL式によるオブジェクト参照 ${式}:${10*2}->20-->
+                                        <!--th:object以下で*を変数のショートカットとして利用可能-->
+                                        <tr th:each="info: ${machineInfo}" th:object="${info}">
+                                            <!--td(table data):表の内容を指定。-->
+                                            <td th:text="*{id}"></td>
+                                            <td th:text="*{platform}"></td>
+                                            <td th:text="*{host_name}"></td>
+                                            <td th:text="*{owner}"></td>
+                                            <!--各列に編集、削除ボタンの表示-->
+                                            <td>
+                                                <a class="btn btn-primary btn-icon-split" th:href="@{/edit/{id}(id=*{id})}">
+                                                    <span class="text">Edit</span>
+                                                </a>
+                                                <a class="btn btn-danger btn-icon-split" th:href="@{/delete/{id}(id=*{id})}">
+                                                    <span class="text">Delete</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

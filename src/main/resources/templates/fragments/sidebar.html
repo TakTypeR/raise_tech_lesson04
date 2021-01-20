@@ -5,9 +5,8 @@
 </head>
 <body>
     <th:block th:fragment="sidebar">
-        <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-            id="accordionSidebar">
+        <!-- Sidebar ul: 順序のないリストを表示-->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <!--@{}:リンク式:/で始めると、レスポンスされるHTMLには、なんとコンテキストパスが補完される-->
@@ -27,6 +26,34 @@
 
             <!-- Divider -->
             <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item li(List Item): リストの項目。<ul></ul> or <ol></ol>の間で使用-->
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/}">
+                    <i class="fas fa-table"></i>
+                    <span>プロジェクト一覧</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/machines}">
+                    <i class="fas fa-table"></i>
+                    <span>機材一覧</span>
+                </a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/add}">
+                    <i class="fas fa-plus-square"></i>
+                    <span>プロジェクト登録</span>
+                </a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
         </ul>
 
     </th:block>
