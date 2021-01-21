@@ -53,6 +53,6 @@ public class MachinesController {
         MachineInfo m = machineInfoMapper.findById(id);
         model.addAttribute("machine", m);
 
-        return "/machine/machine_form";
+        return "machine/machine_form";
     }
 }

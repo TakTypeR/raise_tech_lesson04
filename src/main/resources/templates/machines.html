@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <!--共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
@@ -16,12 +16,12 @@
             <div id="content">
                 <div class="container-fluid">
 
-                    <!--Data tables-->
+                    <!--機材情報リスト-->
                     <div class="card shadow my-4">
                         <div class="card-header py-3">
                             <!--textに文字列を埋め込む場合は | or 'で囲む-->
                             <h6 class="m-0 font-weight-bold text-primary" th:text="|機材リスト(${numOfMachines})|">
-                                Machine List
+                                機材リスト
                             </h6>
                         </div>
 
@@ -69,14 +69,15 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
+                    </div>      <!--機材情報リスト-->
 
-                    </div>
                 </div>
             </div>
-        </div>
+        </div>  <!--main-->
     </div>
+
+    <th:block th:insert="fragments/base::scripts"></th:block>
 </body>
 </html>

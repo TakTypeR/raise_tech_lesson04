@@ -3,9 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <!--共通設定の読み込み-->
-    <th:block th:insert="fragment/base::header"></th:block>
+    <th:block th:insert="fragments/base::header"></th:block>
 </head>
-<body>
+<body id="page-top">
+    <!--page wrapper-->
+    <div id="wrapper">
+        <th:block th:insert="fragments/sidebar :: sidebar"></th:block>
+
+        <!-- main -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+
+                    <!--機材情報-->
+                    <div class="card shadow my-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                機材情報
+                            </h6>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>          <!--main-->
+    </div>
 
 </body>
 </html>
