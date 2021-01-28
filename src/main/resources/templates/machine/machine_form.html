@@ -15,17 +15,51 @@
             <div id="content">
                 <div class="container-fluid">
 
-                    <!--機材情報-->
+                    <!--machine info-->
                     <div class="card shadow my-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
                                 機材情報
                             </h6>
                         </div>
-
+                        <!--入力部分-->
                         <div class="card-body">
                             <div class="table-responsive">
+                                <!--action:送信先を指定 object:Controllerから受け取った情報をobjectで宣言-->
+                                <form th:action="@{/process}" th:object="${machine}" method="post">
+                                    <!--hidden: id等、表示されないが送信されるデータに使用-->
+                                    <input type="hidden" th:field="*{id}">
+                                    <div class="form-group">
+                                        <!--for:input要素と紐づけを行うために名前を付ける-->
+                                        <!--forのメリット: https://style.potepan.com/articles/20037.html-->
+                                        <label for="platform">プラットフォーム</label>
+                                        <!--errorclass: エラー時だけスタイルを切り替える-->
+                                        <input type="text" class="form-control" th:errorclass="is-valid" th:field="*{platform}">
+                                        <div class="invalid-feedback" th:errors="*{platform}"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="host_name">ホスト名</label>
+                                        <input type="text" class="form-control" th:errorclass="is-valid" th:field="*{host_name}">
+                                        <div class="invalid-feedback" th:errors="*{host_name}"></div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="owner">所有者</label>
+                                        <input type="text" class="form-control" th:errorclass="is-valid" th:field="*{owner}">
+                                        <div class="invalid-feedback" th:errors="*{owner}"></div>
+                                    </div>
 
+                                    <!--!Divider-->
+                                    <hr class="sidebar-divider my-4">
+
+                                    <!--保存ボタン-->
+                                    <button class="btn btn-primary btn-block col-md-4">
+                                        <i class="fas fa-edit fa-fw"></i>
+                                        <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
+                                        <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
+                                        <span class="text">保存</span>
+                                    </button>
+
+                                </form>
                             </div>
                         </div>
 

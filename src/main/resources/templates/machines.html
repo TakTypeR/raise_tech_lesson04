@@ -8,7 +8,7 @@
 <body id="page-top">
     <!--page wrapper-->
     <!-- 説明:https://coliss.com/articles/build-websites/operation/css/styling-layout-wrappers-in-css.html -->
-    <div id="wrapper"></div>
+    <div id="wrapper">
         <th:block th:insert="fragments/sidebar::sidebar"></th:block>
 
         <!--main-->
@@ -60,6 +60,8 @@
                                             <!--各列に編集、削除ボタンの表示-->
                                             <td>
                                                 <a class="btn btn-primary btn-icon-split" th:href="@{/edit/{id}(id=*{id})}">
+                                                    <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
+                                                    <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
                                                     <span class="text">Edit</span>
                                                 </a>
                                                 <a class="btn btn-danger btn-icon-split" th:href="@{/delete/{id}(id=*{id})}">
