@@ -6,13 +6,16 @@ import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import lombok.RequiredArgsConstructor;
 
 import javax.crypto.Mac;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class MachinesController {
 
@@ -54,5 +57,27 @@ public class MachinesController {
         model.addAttribute("machine", m);
 
         return "machine/machine_form";
+    }
+
+    //machine_form.htmlのth:actionに対する受け
+    //@Validated:
+    //このメソッドが呼ばれる前に、Entityクラスに付けたバリエーションチェックが行われる
+    //エラーがあるばあいは、引数のBindingResultにエラーが渡される
+    //@ModelAttribute: モデルへ渡され。html側で属性名として${}で参照可能
+    // defaultでクラス名の頭文字を小文字にしたものが属性名
+    //＊型名がバインディング名と同じななら、@ModelAttribute MachineInfo machine
+    //今回は異なるため@ModelAttribute("machine") MachineInfo machineと明示するする必要がある。
+    // これと等価: model.addAttribute("machine", machine)
+    @PostMapping("/process")
+    public String process(@Validated @ModelAttribute("machine") MachineInfo machine, BindingResult result)
+    {
+        //エラーがある場合は、入力フォームページへ戻る
+        if(result.hasErrors()){
+            return "machine/machine_form";
+        }
+
+        //TODO:渡されたデータをＤＢへ保存
+
+        return "redirect:/machines";
     }
 }

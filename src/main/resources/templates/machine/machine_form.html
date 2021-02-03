@@ -28,6 +28,7 @@
                                 <!--action:送信先を指定 object:Controllerから受け取った情報をobjectで宣言-->
                                 <form th:action="@{/process}" th:object="${machine}" method="post">
                                     <!--hidden: id等、表示されないが送信されるデータに使用-->
+                                    <!--各変数はentityのメンバ変数と一致している事-->
                                     <input type="hidden" th:field="*{id}">
                                     <div class="form-group">
                                         <!--for:input要素と紐づけを行うために名前を付ける-->
