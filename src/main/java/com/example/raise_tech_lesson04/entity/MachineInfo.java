@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 // <artifactId>spring-boot-starter-data-jpa</artifactId>
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Size;
 
 
 import lombok.Data;
@@ -19,17 +20,21 @@ import lombok.Data;
 //@Data:クラスメンバに対してsetter/getterを自動追加
 @Data
 public class MachineInfo {
+    //@GeneratedValue: 主キーの値を自動採番する. @Idを一緒に使う
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotBlank(message = "OS名を入力して下さい")
+    @Size(max=32)
     private String platform;
 
     //DBのcolumnに名前を合わせる
-    @NotBlank(message = "マシンのホスト名を入力して下さい")
+    @NotBlank(message = "機材のホスト名を入力して下さい")
+    @Size(max=128)
     private String host_name;
 
-    @NotBlank(message = "マシンの所有者を入力して下さい")
+    @NotBlank(message = "機材の所有者を入力して下さい")
+    @Size(max=128)
     private String owner;
 }

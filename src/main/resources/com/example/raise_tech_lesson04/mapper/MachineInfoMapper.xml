@@ -26,6 +26,11 @@
         DELETE FROM pcs WHERE id = #{id}
     </delete>
 
+    <!--機材データの更新-->
+    <update id="update" parameterType="com.example.raise_tech_lesson04.entity.MachineInfo">
+
+    </update>
+
     <!--numOfMachines:登録機材数の取得-->
     <select id="numOfMachines" resultType="_int">
         SELECT COUNT(*) FROM pcs;

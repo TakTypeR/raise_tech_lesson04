@@ -71,7 +71,8 @@ public class MachinesController {
     @PostMapping("/process")
     public String process(@Validated @ModelAttribute("machine") MachineInfo machine, BindingResult result)
     {
-        //エラーがある場合は、入力フォームページへ戻る
+        //@Validatedが設定されるので、エラーの場合はhasErrors()がtrue
+        // エラーがある場合は、入力フォームページへ戻る
         if(result.hasErrors()){
             return "machine/machine_form";
         }
