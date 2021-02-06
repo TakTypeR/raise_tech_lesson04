@@ -27,8 +27,15 @@
     </delete>
 
     <!--機材データの更新-->
-    <update id="update" parameterType="com.example.raise_tech_lesson04.entity.MachineInfo">
-
+    <!--パラメータが1個の場合、明示しなくても各メンバを#{}で参照可能-->
+    <!--ネストの場合は#{name.host}-->
+    <update id="update">
+        <!--各代入行の最後の","を忘れない-->
+        UPDATE pcs SET
+            platform = #{platform},
+            host_name = #{host_name},
+            owner = #{owner}
+        WHERE id = #{id}
     </update>
 
     <!--numOfMachines:登録機材数の取得-->

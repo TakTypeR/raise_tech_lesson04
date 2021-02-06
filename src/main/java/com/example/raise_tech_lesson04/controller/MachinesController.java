@@ -78,6 +78,7 @@ public class MachinesController {
         }
 
         //TODO:渡されたデータをＤＢへ保存
+        machineInfoMapper.update(machine);;
 
         return "redirect:/machines";
     }
