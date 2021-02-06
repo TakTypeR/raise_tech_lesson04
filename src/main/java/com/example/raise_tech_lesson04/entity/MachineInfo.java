@@ -20,6 +20,7 @@ import lombok.Data;
 //@Data:クラスメンバに対してsetter/getterを自動追加
 @Data
 public class MachineInfo {
+    //DBのcolumnに名前を合わせる
     //@GeneratedValue: 主キーの値を自動採番する. @Idを一緒に使う
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
