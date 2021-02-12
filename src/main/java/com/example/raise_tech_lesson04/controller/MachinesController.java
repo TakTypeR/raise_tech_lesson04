@@ -59,6 +59,12 @@ public class MachinesController {
         return "machine/machine_form";
     }
 
+    @GetMapping("/add_machine")
+    public String addMachine(@ModelAttribute("machine") MachineInfo machine)
+    {
+        return "machine/machine_form";
+    }
+
     //machine_form.htmlのth:actionに対する受け
     //@Validated:
     //このメソッドが呼ばれる前に、Entityクラスに付けたバリエーションチェックが行われる
@@ -77,9 +83,7 @@ public class MachinesController {
             return "machine/machine_form";
         }
 
-        //TODO:渡されたデータをＤＢへ保存
         machineInfoMapper.update(machine);;
-
         return "redirect:/machines";
     }
 }

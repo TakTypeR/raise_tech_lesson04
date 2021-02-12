@@ -25,6 +25,8 @@
                             </h6>
                         </div>
 
+                        <!--card:画像、タイトル、説明、リンクボタンを1つ枠の中に入れて、一枚のカードのように扱えるコンポーネント-->
+                        <!--class名にcardを指定したdivで囲む-->
                         <div class="card-body">
                             <div class="table-responsive">
                                 <div th:if="${machineInfo.size()==0}">
@@ -62,17 +64,23 @@
                                                 <a class="btn btn-primary btn-icon-split" th:href="@{/edit/{id}(id=*{id})}">
                                                     <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
                                                     <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
-                                                    <span class="text">Edit</span>
+                                                    <span class="text">編集</span>
                                                 </a>
                                                 <a class="btn btn-danger btn-icon-split" th:href="@{/delete/{id}(id=*{id})}">
-                                                    <span class="text">Delete</span>
+                                                    <span class="text">削除</span>
                                                 </a>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
+                            <!--cardの外に記述すると枠一杯のボタンになってしまう-->
+                            <a class="btn btn-primary btn-icon-split" th:href="@{/add_machine}">
+                                <span class="text">機材登録</span>
+                            </a>
                         </div>
+
                     </div>      <!--機材情報リスト-->
 
                 </div>
