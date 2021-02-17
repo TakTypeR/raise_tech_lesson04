@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<!--機材情報入力、編集時に使う共通フォーム部分-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!--th:block::疑似的なブロックを形成できるタグ    -->
+    <th:block th:fragment="base">
+        <!--hidden: id等、表示されないが送信されるデータに使用-->
+        <!--各変数はentityのメンバ変数と一致している事-->
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <!--for:input要素と紐づけを行うために名前を付ける-->
+            <!--forのメリット: https://style.potepan.com/articles/20037.html-->
+            <label for="platform">プラットフォーム</label>
+            <!--errorclass: エラー時だけスタイルを切り替える-->
+            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform}">
+            <div class="invalid-feedback" th:errors="*{platform}"></div>
+        </div>
+        <div class="form-group">
+            <label for="host_name">ホスト名</label>
+            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{host_name}">
+            <div class="invalid-feedback" th:errors="*{host_name}"></div>
+        </div>
+        <div class="form-group">
+            <label for="owner">所有者</label>
+            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{owner}">
+            <div class="invalid-feedback" th:errors="*{owner}"></div>
+        </div>
+
+    </th:block>
+</body>
+</html>
