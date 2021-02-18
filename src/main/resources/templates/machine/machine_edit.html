@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--機材情報編集ページ-->
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--共通設定の読み込み-->
+    <th:block th:insert="fragments/base::header"></th:block>
+</head>
+<body id="page-top">
+    <!--page wrapper-->
+    <div id="wrapper">
+        <th:block th:insert="fragments/sidebar::sidebar"></th:block>
+
+        <!-- main -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+
+                    <!--machine info-->
+                    <div class="card shadow my-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">
+                                機材情報の編集
+                            </h6>
+                        </div>
+                        <!--入力部分-->
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <!--action:遷移先を指定 object:Controllerから受け取った情報をobjectで宣言-->
+                                <form th:action="@{/process_edit_machine}" th:object="${machine}" method="post">
+
+                                    <!--編集と新規登録の項目は同じなので、共通部分を読み込み-->
+                                    <th:block th:insert="fragments/machine/form_base::base"></th:block>
+
+                                    <!--!Divider-->
+                                    <hr class="sidebar-divider my-4">
+
+                                    <!--保存ボタン-->
+                                    <button class="btn btn-primary btn-block col-md-4">
+                                        <i class="fas fa-edit fa-fw"></i>
+                                        <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
+                                        <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
+                                        <span class="text">保存</span>
+                                    </button>
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>          <!--main-->
+    </div>
+
+</body>
+</html>

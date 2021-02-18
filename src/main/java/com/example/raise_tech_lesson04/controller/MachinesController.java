@@ -56,16 +56,16 @@ public class MachinesController {
         MachineInfo m = machineInfoMapper.findById(id);
         model.addAttribute("machine", m);
 
-        return "machine/machine_form";
+        return "machine/machine_edit";
     }
 
-    @GetMapping("/add_machine")
-    public String addMachine(@ModelAttribute("machine") MachineInfo machine)
+    @GetMapping("/new_machine")
+    public String newMachine(@ModelAttribute("machine") MachineInfo machine)
     {
-        return "machine/machine_form";
+        return "machine/machine_new";
     }
 
-    //machine_form.htmlのth:actionに対する受け
+    //machine_edit.htmlのth:actionに対する受け
     //@Validated:
     //このメソッドが呼ばれる前に、Entityクラスに付けたバリエーションチェックが行われる
     //エラーがあるばあいは、引数のBindingResultにエラーが渡される
@@ -74,13 +74,13 @@ public class MachinesController {
     //＊型名がバインディング名と同じななら、@ModelAttribute MachineInfo machine
     //今回は異なるため@ModelAttribute("machine") MachineInfo machineと明示するする必要がある。
     // これと等価: model.addAttribute("machine", machine)
-    @PostMapping("/process")
-    public String process(@Validated @ModelAttribute("machine") MachineInfo machine, BindingResult result)
+    @PostMapping("/process_edit_machine")
+    public String processEditMachine(@Validated @ModelAttribute("machine") MachineInfo machine, BindingResult result)
     {
         //@Validatedが設定されるので、エラーの場合はhasErrors()がtrue
         // エラーがある場合は、入力フォームページへ戻る
         if(result.hasErrors()){
-            return "machine/machine_form";
+            return "machine/machine_edit";
         }
 
         machineInfoMapper.update(machine);;

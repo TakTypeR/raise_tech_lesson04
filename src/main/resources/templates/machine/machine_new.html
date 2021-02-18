@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--新規機材情報入力ページ-->
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,27 +7,24 @@
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
 <body id="page-top">
-    <!--page wrapper-->
     <div id="wrapper">
         <th:block th:insert="fragments/sidebar::sidebar"></th:block>
-
         <!-- main -->
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <div class="container-fluid">
-
-                    <!--machine info-->
+                    <!--card:サムネイル画像、見出し、テキスト、リンク等を内包出来るコンポーネント-->
                     <div class="card shadow my-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                機材情報
+                                新規機材の登録
                             </h6>
                         </div>
                         <!--入力部分-->
                         <div class="card-body">
                             <div class="table-responsive">
-                                <!--action:送信先を指定 object:Controllerから受け取った情報をobjectで宣言-->
-                                <form th:action="@{/process}" th:object="${machine}" method="post">
+                                <!--action:遷移先を指定 object:Controllerから受け取った情報をobjectで宣言-->
+                                <form th:action="@{/process_new_machine}" th:object="${machine}" method="post">
 
                                     <!--編集と新規登録の項目は同じなので、共通部分を読み込み-->
                                     <th:block th:insert="fragments/machine/form_base::base"></th:block>
@@ -34,24 +32,20 @@
                                     <!--!Divider-->
                                     <hr class="sidebar-divider my-4">
 
-                                    <!--保存ボタン-->
+                                    <!--登録ボタン-->
                                     <button class="btn btn-primary btn-block col-md-4">
                                         <i class="fas fa-edit fa-fw"></i>
                                         <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
                                         <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
-                                        <span class="text">保存</span>
+                                        <span class="text">登録</span>
                                     </button>
-
-                                </form>
                             </div>
                         </div>
 
                     </div>
-
                 </div>
             </div>
-        </div>          <!--main-->
+        </div>
     </div>
-
 </body>
 </html>
