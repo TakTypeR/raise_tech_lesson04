@@ -38,9 +38,10 @@ public class MachinesController {
         return "machines";
     }
 
+    //機材リストから機材を削除*************************************************************
     //machines.htmlのdelete::hrefに対する受け
     @GetMapping("/delete/{id}")
-    // @PathVariable: URLに含まれるパラメータを取得する
+    //@PathVariable: URLに含まれるパラメータを取得する
     public String deleteMachine(@PathVariable("id") int id)
     {
         //更新したＤＢで持って、同ページを再表示
@@ -48,6 +49,7 @@ public class MachinesController {
         return "redirect:/machines";
     }
 
+    //機材情報の更新******************************************************************
     //machines.htmlのedit::hrefに対する受け
     @GetMapping("/edit/{id}")
     public String editMachine(@PathVariable("id") int id, Model model)
@@ -57,12 +59,6 @@ public class MachinesController {
         model.addAttribute("machine", m);
 
         return "machine/machine_edit";
-    }
-
-    @GetMapping("/new_machine")
-    public String newMachine(@ModelAttribute("machine") MachineInfo machine)
-    {
-        return "machine/machine_new";
     }
 
     //machine_edit.htmlのth:actionに対する受け
@@ -84,6 +80,26 @@ public class MachinesController {
         }
 
         machineInfoMapper.update(machine);;
+        return "redirect:/machines";
+    }
+
+    //新規機材の追加******************************************************************
+    @GetMapping("/new_machine")
+    public String newMachine(@ModelAttribute("machine") MachineInfo machine)
+    {
+        return "machine/machine_new";
+    }
+
+    @PostMapping("/process_new_machine")
+    public String processNewMachine(@Validated @ModelAttribute("machine") MachineInfo machine, BindingResult result)
+    {
+        //@Validatedが設定されるので、エラーの場合はhasErrors()がtrue
+        // エラーがある場合は、入力フォームページへ戻る
+        if(result.hasErrors()){
+            return "machine/machine_new";
+        }
+
+        machineInfoMapper.insert(machine);;
         return "redirect:/machines";
     }
 }

@@ -15,6 +15,7 @@ public interface MachineInfoMapper {
     MachineInfo findById( int id );
     void deleteById( int id );
     void update( MachineInfo machineInfo );
+    void insert( MachineInfo machineInfo );
 
     int numOfMachines();
 }

@@ -27,6 +27,12 @@
                         <div class="card-body">
                             <div class="table-responsive">
                                 <!--action:遷移先を指定 object:Controllerから受け取った情報をobjectで宣言-->
+                                <!--POST/PUTの違い-->
+                                <!--一般的にはPOST:リソースの追加(create) PUT:リソースの更新(update)-->
+                                <!--POST: URLが変わらない。パラメータがボディに入るので見えない-->
+                                <!--PUT: パラメータがヘッダに入るのでURLが変わる。パラメータサイズが小さいのでエラーになりやすい-->
+                                <!--↑からPOSTを常に使った方が良さそう-->
+                                <!--参考:https://blog.ruedap.com/2011/03/24/http-method-post-put -->
                                 <form th:action="@{/process_edit_machine}" th:object="${machine}" method="post">
 
                                     <!--編集と新規登録の項目は同じなので、共通部分を読み込み-->

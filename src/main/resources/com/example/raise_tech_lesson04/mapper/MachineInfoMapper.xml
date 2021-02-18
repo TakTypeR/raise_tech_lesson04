@@ -38,6 +38,14 @@
         WHERE id = #{id}
     </update>
 
+    <!--新規機材の追加-->
+    <!--パラメータが1個の場合、明示しなくても各メンバを#{}で参照可能-->
+    <insert id="insert">
+        <!--テーブルpcsの各要素に対して値を設定する-->
+        INSERT INTO pcs (platform, host_name, owner)
+        VALUES (#{platform}, #{host_name}, #{owner})
+    </insert>
+
     <!--numOfMachines:登録機材数の取得-->
     <select id="numOfMachines" resultType="_int">
         SELECT COUNT(*) FROM pcs;
