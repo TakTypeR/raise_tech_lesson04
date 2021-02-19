@@ -22,6 +22,7 @@ import lombok.Data;
 public class MachineInfo {
     //DBのcolumnに名前を合わせる
     //@GeneratedValue: 主キーの値を自動採番する. @Idを一緒に使う
+    //****DB側でAuto Incrementを有効にする事。そうしないと、新規追加時にidエラーになる
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
