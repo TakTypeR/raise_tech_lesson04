@@ -64,7 +64,7 @@ public class MachinesController {
     //machine_edit.htmlのth:actionに対する受け
     //@Validated:
     //このメソッドが呼ばれる前に、Entityクラスに付けたバリエーションチェックが行われる
-    //エラーがあるばあいは、引数のBindingResultにエラーが渡される
+    //エラーがある場合は、引数のBindingResultにエラーが渡される
     //@ModelAttribute: モデルへ渡され。html側で属性名として${}で参照可能
     // defaultでクラス名の頭文字を小文字にしたものが属性名
     //＊型名がバインディング名と同じななら、@ModelAttribute MachineInfo machine
@@ -79,7 +79,7 @@ public class MachinesController {
             return "machine/machine_edit";
         }
 
-        machineInfoMapper.update(machine);;
+        machineInfoMapper.update(machine);
         return "redirect:/machines";
     }
 
@@ -99,7 +99,7 @@ public class MachinesController {
             return "machine/machine_new";
         }
 
-        machineInfoMapper.insert(machine);;
+        machineInfoMapper.insert(machine);
         return "redirect:/machines";
     }
 }

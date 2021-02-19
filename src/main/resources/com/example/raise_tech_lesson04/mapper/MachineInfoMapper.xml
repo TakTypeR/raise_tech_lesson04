@@ -39,8 +39,8 @@
     </update>
 
     <!--新規機材の追加-->
-    <!--パラメータが1個の場合、明示しなくても各メンバを#{}で参照可能
-        DB側でAuto Incrementを有効にする事。
+    <!--パラメータが1個の場合、明示しなくても各メンバを#{}で参照可能-->
+    <!--DB側でAuto Incrementを有効にする事。
         そうしないと、新規追加時にidエラーになる(Field 'id' doesn't have a default value)-->
     <insert id="insert">
         <!--テーブルpcsの各要素に対して値を設定する-->

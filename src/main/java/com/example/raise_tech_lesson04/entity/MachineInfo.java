@@ -17,6 +17,13 @@ import javax.validation.constraints.Size;
 
 import lombok.Data;
 
+//参考
+//classに@Entity(JPA)(@javax.persistence.Entity )を付けると、
+// 作成したクラスをデータベースに書き込む1件のレコードとして定義することが出来る
+//参考URL
+//https://builder.japan.zdnet.com/sp_oracle/35067018/
+//http://itref.fc2web.com/java/jpa/annotation.html
+
 //@Data:クラスメンバに対してsetter/getterを自動追加
 @Data
 public class MachineInfo {
@@ -28,7 +35,7 @@ public class MachineInfo {
     private int id;
 
     @NotBlank(message = "OS名を入力して下さい")
-    @Size(max=32)
+    @Size(max=24)
     private String platform;
 
     //DBのcolumnに名前を合わせる
