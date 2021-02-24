@@ -1,7 +1,6 @@
 package com.example.raise_tech_lesson04.controller;
 
 import com.example.raise_tech_lesson04.entity.MachineInfo;
-import com.example.raise_tech_lesson04.entity.UserInfo;
 import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
-import javax.crypto.Mac;
 import java.util.List;
 
 @RequiredArgsConstructor
