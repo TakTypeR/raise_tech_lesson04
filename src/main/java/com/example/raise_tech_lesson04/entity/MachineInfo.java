@@ -25,24 +25,39 @@ import lombok.Data;
 //http://itref.fc2web.com/java/jpa/annotation.html
 
 //@Data:クラスメンバに対してsetter/getterを自動追加
+
+/**
+ * 機材情報管理クラス
+ */
 @Data
 public class MachineInfo {
-    //DBのcolumnに名前を合わせる
-    //@GeneratedValue: 主キーの値を自動採番する. @Idを一緒に使う
-    //****DB側でAuto Incrementを有効にする事。そうしないと、新規追加時にidエラーになる
+    /**
+     * DBのcolumnに名前を合わせる
+     * {@code @GeneratedValue}: 主キーの値を自動採番する. @Idを一緒に使う
+     * <p><b>Note: DB側でAuto Incrementを有効にする事。そうしないと、新規追加時にidエラーになる
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    /**
+     * OS種別: Win/Mac/Linux...
+     */
     @NotBlank(message = "OS名を入力して下さい")
     @Size(max=24)
     private String platform;
 
-    //DBのcolumnに名前を合わせる
+    /**
+     * 一意に与えられたホスト名
+     * <p><b>DBのcolumnに名前を合わせる
+     */
     @NotBlank(message = "機材のホスト名を入力して下さい")
     @Size(max=128)
     private String host_name;
 
+    /**
+     * 主な所有者
+     */
     @NotBlank(message = "機材の所有者を入力して下さい")
     @Size(max=128)
     private String owner;

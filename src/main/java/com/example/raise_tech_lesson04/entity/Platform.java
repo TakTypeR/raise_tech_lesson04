@@ -9,6 +9,9 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+/**
+ * 機材のOS情報を管理するクラス
+ */
 @Entity
 @Data
 public class Platform {
