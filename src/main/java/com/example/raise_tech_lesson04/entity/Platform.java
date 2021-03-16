@@ -19,6 +19,9 @@ public class Platform {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    /**
+     * 実際のOS名(Win, Mac....)
+     */
     @NotBlank
     @Size(max=24)
     private String name;

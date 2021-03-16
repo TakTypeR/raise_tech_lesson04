@@ -49,7 +49,7 @@ public class MachinesController {
     }
 
     /**
-     * 指定した機材を機材リストから削除する
+     * 指定した機材を機材リストから削除する<br>
      * machines.htmlのdelete::hrefに対する受け
      * {@code @PathVariable}: URLに含まれるパラメータを取得する
      * @param id 削除対象の機材情報ID
@@ -64,7 +64,7 @@ public class MachinesController {
     }
 
     /**
-     * 指定した機材情報を更新する為に、情報を表示する
+     * 指定した機材情報を更新する為に、情報を表示する<br>
      * machines.htmlのedit::hrefに対する受け
      * @param id 更新対象の機材情報ID
      * @param model 機材リストデータを管理するモデル
@@ -81,16 +81,16 @@ public class MachinesController {
     }
 
     /**
-     * 機材情報更新決定後に除法をDBへ反映する
-     * machine_edit.htmlのth:actionに対する受け
+     * 機材情報更新決定後に除法をDBへ反映する<br>
+     * machine_edit.htmlのth:actionに対する受け<br>
      * {@code @Validated}:
-     * このメソッドが呼ばれる前に、Entityクラスに付けたバリエーションチェックが行われる
-     * エラーがある場合は、引数のBindingResultにエラーが渡される
-     * {@code @ModelAttribute}: モデルへ渡され。html側で属性名として${}で参照可能
-     *  defaultでクラス名の頭文字を小文字にしたものが属性名
-     * ＊型名がバインディング名と同じななら、@ModelAttribute MachineInfo mach
-     * 今回は異なるため@ModelAttribute("machine") MachineInfo machineと明示するする必要がある。
-     *  これと等価: model.addAttribute("machine", machine)
+     * このメソッドが呼ばれる前に、Entityクラスに付けたバリエーションチェックが行われる<br>
+     * エラーがある場合は、引数のBindingResultにエラーが渡される<br>
+     * {@code @ModelAttribute}: モデルへ渡され。html側で属性名として${}で参照可能<br>
+     *  defaultでクラス名の頭文字を小文字にしたものが属性名<br>
+     * ＊型名がバインディング名と同じななら、@ModelAttribute MachineInfo mach<br>
+     * 今回は異なるため@ModelAttribute("machine") MachineInfo machineと明示するする必要がある。<br>
+     *  これと等価: model.addAttribute("machine", machine)<br>
      * @param machine 更新する機材情報
      * @param result MachineInfo classの評価アノテーションに基づいた入力値のチェック結果
      * @return 遷移先の機材リストページ
