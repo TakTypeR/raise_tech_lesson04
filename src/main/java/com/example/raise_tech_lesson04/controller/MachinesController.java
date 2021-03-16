@@ -29,12 +29,12 @@ public class MachinesController {
     @Autowired
     MachineInfoMapper machineInfoMapper;
 
-    @RequestMapping("/machines")
     /**
      * 機材リストメインページを表示する
      * @param iModel 機材リストデータを管理するモデル
      * @return 対応ページhtmlファイル名
      */
+    @RequestMapping("/machines")
     public  String machines(Model iModel){
         //DBからデータ取得。mapper.xmlで関連付けられたSQLが呼ばれる
         List<MachineInfo> mList = machineInfoMapper.selectAll();
@@ -48,7 +48,6 @@ public class MachinesController {
         return "machines";
     }
 
-    @GetMapping("/delete/{id}")
     /**
      * 指定した機材を機材リストから削除する
      * machines.htmlのdelete::hrefに対する受け
@@ -56,6 +55,7 @@ public class MachinesController {
      * @param id 削除対象の機材情報ID
      * @return 削除後の遷移先機材リストページ
      */
+    @GetMapping("/delete/{id}")
     public String deleteMachine(@PathVariable("id") int id)
     {
         //更新したＤＢで持って、同ページを再表示
