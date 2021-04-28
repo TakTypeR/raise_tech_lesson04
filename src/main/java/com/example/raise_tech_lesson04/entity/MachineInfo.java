@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Size;
 
+import com.example.raise_tech_lesson04.entity.Platform;
 
 import lombok.Data;
 
@@ -46,6 +47,11 @@ public class MachineInfo {
     @NotBlank(message = "OS名を入力して下さい")
     @Size(max=24)
     private String platform;
+
+    /**
+     * OS種別(テーブル参照版)：Win/Mac/Linux
+     */
+    private Platform platform2;
 
     /**
      * 一意に与えられたホスト名
