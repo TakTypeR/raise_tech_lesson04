@@ -4,6 +4,31 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.raise_tech_lesson04.mapper.MachineInfoMapper">
+    <resultMap id="MachineInfoResultMap" type="com.example.raise_tech_lesson04.entity.MachineInfo">
+
+    </resultMap>
+
+    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
+
+    <!--リレーション関係をもつテーブルからデータの取得-->
+    <select id="findAll2" resultMap="MachineInfoResultMap">
+        <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
+        select
+            <!--Java側のフィールドに対応したデータを返す-->
+            pcs2.id        as pcs_id,
+            pcs2.plat_form,
+            platforms.id   as platforms_id,
+            platforms.name as platforms_name,
+            pcs2.host_name as pcs_host_name,
+            pcs2.owner     as pcs_owner
+        <!--from join on: テーブル間の結合を行う/from,join句ではスペース区切りでエイリアス可能-->
+        <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
+        <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
+        from pcs2 pcs
+        inner join platforms
+        on pcs.platform_id = platforms_id
+    </select>
+    
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
     <!--selectAll:全機材データの取得-->
     <select id="selectAll" resultType="com.example.raise_tech_lesson04.entity.MachineInfo">
