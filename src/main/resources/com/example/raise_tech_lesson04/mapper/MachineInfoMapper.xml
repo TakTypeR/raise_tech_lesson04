@@ -4,10 +4,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.raise_tech_lesson04.mapper.MachineInfoMapper">
-    <resultMap id="MachineInfoResultMap" type="com.example.raise_tech_lesson04.entity.MachineInfo">
-
-    </resultMap>
-
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
 
     <!--リレーション関係をもつテーブルからデータの取得-->
@@ -16,19 +12,43 @@
         select
             <!--Java側のフィールドに対応したデータを返す-->
             pcs2.id        as pcs_id,
-            pcs2.plat_form,
+            pcs2.platform  as pcs_platform,
+            <!--別テーブルにあるカラムデータを取得-->
             platforms.id   as platforms_id,
             platforms.name as platforms_name,
             pcs2.host_name as pcs_host_name,
             pcs2.owner     as pcs_owner
-        <!--from join on: テーブル間の結合を行う/from,join句ではスペース区切りでエイリアス可能-->
+        <!--from join on: from, jointのテーブルの結合を行う。条件はon-->
+        <!--from,join句ではスペース区切りでエイリアス可能-->
         <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
         <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
         from pcs2 pcs
         inner join platforms
         on pcs.platform_id = platforms_id
     </select>
-    
+
+    <!--resultMap: 検索結果で取得した内容をJava側のオブジェクトへどうマッピングするかの指定を記述-->
+    <resultMap id="MachineInfoResultMap" type="com.example.raise_tech_lesson04.entity.MachineInfo">
+        <!--property: java側プロパティ column: SQLのカラム-->
+        <!--カラム/Java側の内容によって、正しい属性を指定する-->
+        <!--https://mybatis.org/mybatis-3/ja/sqlmap-xml.html#Result_Maps -->
+        <!--id: フィールドがIDである事を明示-->
+        <id property="id" column="id" />
+        <!--result: id以外の基本型(string, int, Data..)であるの場合に指定-->
+        <result property="platform" column="pcs_platform" />
+        <result property="host_name" column="host_name" />
+        <result property="owner" column="owner" />
+        <!--associate:1対1の関係で利用-->
+        <!--collection: 1対多(java側 List<class>)の時に利用-->
+        <association property="platform2" resultMap="platformResult"/>
+    </resultMap>
+    <!--platformResult部分のマッピング定義-->
+    <resultMap id="platformResult" type="com.example.raise_tech_lesson04.entity.Platform">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+    </resultMap>
+
+
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
     <!--selectAll:全機材データの取得-->
     <select id="selectAll" resultType="com.example.raise_tech_lesson04.entity.MachineInfo">
