@@ -37,7 +37,8 @@ public class MachinesController {
     @RequestMapping("/machines")
     public String machines(Model iModel){
         //DBからデータ取得。mapper.xmlで関連付けられたSQLが呼ばれる
-        List<MachineInfo> mList = machineInfoMapper.selectAll();
+        //List<MachineInfo> mList = machineInfoMapper.selectAll();
+        List<MachineInfo> mList = machineInfoMapper.selectAll2();
         //対応するresourceファイルから参照するために、値を登録
         iModel.addAttribute("machineInfo", mList);
 

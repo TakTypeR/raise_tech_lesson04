@@ -15,6 +15,5 @@ CREATE TABLE IF NOT EXISTS pcs2 (
   platform_id  INT             NOT NULL,
   host_name    VARCHAR(45)     NOT NULL,
   owner        VARCHAR(45),
-  platform     VARCHAR(45),    NOT NULL
-
+  platform     VARCHAR(45)     NOT NULL
 );

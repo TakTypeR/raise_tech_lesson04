@@ -7,10 +7,11 @@
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
 
     <!--リレーション関係をもつテーブルからデータの取得-->
-    <select id="findAll2" resultMap="MachineInfoResultMap">
+    <select id="selectAll2" resultMap="MachineInfoResultMap">
         <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
         select
             <!--Java側のフィールドに対応したデータを返す-->
+            <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句ではNG-->
             pcs2.id        as pcs_id,
             pcs2.platform  as pcs_platform,
             <!--別テーブルにあるカラムデータを取得-->
@@ -22,9 +23,9 @@
         <!--from,join句ではスペース区切りでエイリアス可能-->
         <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
         <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
-        from pcs2 pcs
+        from pcs2
         inner join platforms
-        on pcs.platform_id = platforms_id
+        on pcs2.platform_id = platforms.id
     </select>
 
     <!--resultMap: 検索結果で取得した内容をJava側のオブジェクトへどうマッピングするかの指定を記述-->
@@ -35,7 +36,7 @@
         <!--id: フィールドがIDである事を明示-->
         <id property="id" column="id" />
         <!--result: id以外の基本型(string, int, Data..)であるの場合に指定-->
-        <result property="platform" column="pcs_platform" />
+        <result property="platform" column="platform" />
         <result property="host_name" column="host_name" />
         <result property="owner" column="owner" />
         <!--associate:1対1の関係で利用-->
@@ -52,7 +53,7 @@
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
     <!--selectAll:全機材データの取得-->
     <select id="selectAll" resultType="com.example.raise_tech_lesson04.entity.MachineInfo">
-        <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
+        <!--SELECT:データ取得命令 *:全カラム指定 FROM:どの表から(スキーマ名.テーブル名)-->
         SELECT * FROM pcs;
     </select>
 
