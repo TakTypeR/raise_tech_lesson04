@@ -11,7 +11,7 @@
         <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
         select
             <!--Java側のフィールドに対応したデータを返す-->
-            <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句ではNG-->
+            <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句では参照不可-->
             pcs2.id        as pcs_id,
             pcs2.platform  as pcs_platform,
             <!--別テーブルにあるカラムデータを取得-->
@@ -31,22 +31,24 @@
     <!--resultMap: 検索結果で取得した内容をJava側のオブジェクトへどうマッピングするかの指定を記述-->
     <resultMap id="MachineInfoResultMap" type="com.example.raise_tech_lesson04.entity.MachineInfo">
         <!--property: java側プロパティ column: SQLのカラム-->
+        <!--column: SQL文でasによる別名を付けていたらそれを指定(オリジナルの名前だとダメ？)-->
         <!--カラム/Java側の内容によって、正しい属性を指定する-->
         <!--https://mybatis.org/mybatis-3/ja/sqlmap-xml.html#Result_Maps -->
         <!--id: フィールドがIDである事を明示-->
-        <id property="id" column="id" />
+        <id property="id" column="pcs_id" />
         <!--result: id以外の基本型(string, int, Data..)であるの場合に指定-->
-        <result property="platform" column="platform" />
-        <result property="host_name" column="host_name" />
-        <result property="owner" column="owner" />
+        <result property="platform" column="pcs_platform" />
+        <result property="host_name" column="pcs_host_name" />
+        <result property="owner" column="pcs_owner" />
         <!--associate:1対1の関係で利用-->
         <!--collection: 1対多(java側 List<class>)の時に利用-->
         <association property="platform2" resultMap="platformResult"/>
     </resultMap>
     <!--platformResult部分のマッピング定義-->
     <resultMap id="platformResult" type="com.example.raise_tech_lesson04.entity.Platform">
-        <id property="id" column="id" />
-        <result property="name" column="name" />
+        <!--property: java側プロパティ column: SQLのカラム(SQL本体でasによる別名を付けていたら、それを指定する)-->
+        <id property="id" column="platforms_id" />
+        <result property="name" column="platforms_name" />
     </resultMap>
 
 
