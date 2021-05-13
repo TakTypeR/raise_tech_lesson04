@@ -19,7 +19,6 @@ public interface MachineInfoMapper {
      * @return 機材情報リスト
      */
     List<MachineInfo> selectAll();
-    List<MachineInfo> selectAll2();
 
     /**
      * 指定IDの機材情報を検索する
