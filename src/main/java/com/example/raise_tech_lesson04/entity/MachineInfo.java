@@ -42,16 +42,9 @@ public class MachineInfo {
     private int id;
 
     /**
-     * OS種別: Win/Mac/Linux...
+     * OS種別(テーブル参照)：Win/Mac/Linux
      */
-    @NotBlank(message = "OS名を入力して下さい")
-    @Size(max=24)
-    private String platform;
-
-    /**
-     * OS種別(テーブル参照版)：Win/Mac/Linux
-     */
-    private Platform platform2;
+    private Platform platform;
 
     /**
      * 一意に与えられたホスト名

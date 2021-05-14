@@ -36,12 +36,11 @@
         <!--id: フィールドがIDである事を明示-->
         <id property="id" column="pcs_id" />
         <!--result: id以外の基本型(string, int, Data..)であるの場合に指定-->
-        <result property="platform" column="pcs_platform" />
         <result property="host_name" column="pcs_host_name" />
         <result property="owner" column="pcs_owner" />
         <!--associate:1対1の関係で利用-->
         <!--collection: 1対多(java側 List<class>)の時に利用-->
-        <association property="platform2" resultMap="platformResult"/>
+        <association property="platform" resultMap="platformResult"/>
     </resultMap>
     <!--platformResult部分のマッピング定義-->
     <resultMap id="platformResult" type="com.example.raise_tech_lesson04.entity.Platform">

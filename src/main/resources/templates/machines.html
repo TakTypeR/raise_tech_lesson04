@@ -56,7 +56,8 @@
                                         <tr th:each="info: ${machineInfo}" th:object="${info}">
                                             <!--td(table data):表の内容を指定。-->
                                             <td th:text="*{id}"></td>
-                                            <td th:text="*{platform}"></td>
+                                            <!--サブフィールドは.で参照可-->
+                                            <td th:text="*{platform.name}"></td>
                                             <td th:text="*{host_name}"></td>
                                             <td th:text="*{owner}"></td>
                                             <!--各列に編集、削除ボタンの表示-->
