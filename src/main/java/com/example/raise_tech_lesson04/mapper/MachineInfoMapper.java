@@ -26,7 +26,6 @@ public interface MachineInfoMapper {
      * @return 機材情報
      */
     MachineInfo findById( int id );
-    MachineInfo findById2( int id );
 
     /**
      * 指定IDの機材情報を削除する

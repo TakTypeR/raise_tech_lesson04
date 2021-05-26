@@ -55,7 +55,7 @@
     <!--メソッドの引数が1つの場合、@Paramは付与しない-->
     <!--引数が１つで、基本データ型ならMyBatisの変数は、どんな名前でも参照可能-->
     <!--引数が複数の場合は、java側に@Paramを付与する(https://qiita.com/5zm/items/0864d6641c65f976d415)-->
-    <select id="findById2" parameterType="int" resultMap="MachineInfoResultMap">
+    <select id="findById" parameterType="int" resultMap="MachineInfoResultMap">
         select
             pcs2.id        as pcs_id,
             pcs2.platform  as pcs_platform,
@@ -68,15 +68,6 @@
         on pcs2.platform_id = platforms.id
         <!--#{id}のidはjava側のid-->
         where pcs2.id = #{id}
-    </select>
-
-    <!--指定IDの機材情報を取得-->
-    <!--メソッドの引数が1つの場合、@Paramは付与しない-->
-    <!--引数が１つで、基本データ型ならMyBatisの変数は、どんな名前でも参照可能-->
-    <!--引数が複数の場合は、java側に@Paramを付与する(https://qiita.com/5zm/items/0864d6641c65f976d415)-->
-    <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.MachineInfo">
-        <!--#{id}のidはjava側のid-->
-        SELECT * FROM pcs WHERE id = #{id}
     </select>
 
     <!--指定IDの機材を削除-->

@@ -74,7 +74,7 @@ public class MachinesController {
     public String editMachine(@PathVariable("id") int id, Model model)
     {
         //遷移先のページで機材情報を表示する為、機材情報を取得して渡す
-        MachineInfo m = machineInfoMapper.findById2(id);
+        MachineInfo m = machineInfoMapper.findById(id);
         model.addAttribute("machine", m);
 
         return "machine/machine_edit";
