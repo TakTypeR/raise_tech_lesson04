@@ -15,8 +15,8 @@
             <!--forのメリット: https://style.potepan.com/articles/20037.html-->
             <label for="platform">プラットフォーム</label>
             <!--errorclass: エラー時だけスタイルを切り替える-->
-            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform}">
-            <div class="invalid-feedback" th:errors="*{platform}"></div>
+            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform.name}">
+            <div class="invalid-feedback" th:errors="*{platform.name}"></div>
         </div>
         <div class="form-group">
             <label for="host_name">ホスト名</label>
