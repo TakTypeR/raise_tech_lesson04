@@ -28,9 +28,10 @@
         <result property="name" column="platforms_name" />
     </resultMap>
 
-    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
-    <!--リレーション関係をもつテーブルからデータの取得-->
-    <select id="selectAll" resultMap="MachineInfoResultMap">
+    <!--sql: 再利用可能なSQLのコードスニペットの定義 https://akiakiblog.net/mybatis-common-sql/ -->
+    <!--includeした場所に展開される。thymeleafのfragmentと同じ-->
+    <!--bindを使えば変数定義も可能    -->
+    <sql id="selectMachines">
         <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
         select
             <!--Java側のフィールドに対応したデータを返す-->
@@ -42,13 +43,20 @@
             platforms.name as platforms_name,
             pcs2.host_name as pcs_host_name,
             pcs2.owner     as pcs_owner
-        <!--from join on: from, jointのテーブルの結合を行う。条件はon-->
-        <!--from,join句ではスペース区切りでエイリアス可能-->
-        <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
-        <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
+            <!--from join on: from, jointのテーブルの結合を行う。条件はon-->
+            <!--from,join句ではスペース区切りでエイリアス可能-->
+            <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
+            <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
         from pcs2
         inner join platforms
         on pcs2.platform_id = platforms.id
+    </sql>
+
+    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
+    <!--リレーション関係をもつテーブルからデータの取得-->
+    <select id="selectAll" resultMap="MachineInfoResultMap">
+        <!--include: sqlスニペットの読み込み-->
+        <include refid="selectMachines"></include>
     </select>
 
     <!--指定IDの機材情報を取得-->
@@ -56,16 +64,8 @@
     <!--引数が１つで、基本データ型ならMyBatisの変数は、どんな名前でも参照可能-->
     <!--引数が複数の場合は、java側に@Paramを付与する(https://qiita.com/5zm/items/0864d6641c65f976d415)-->
     <select id="findById" parameterType="int" resultMap="MachineInfoResultMap">
-        select
-            pcs2.id        as pcs_id,
-            pcs2.platform  as pcs_platform,
-            platforms.id   as platforms_id,
-            platforms.name as platforms_name,
-            pcs2.host_name as pcs_host_name,
-            pcs2.owner     as pcs_owner
-        from pcs2
-        inner join platforms
-        on pcs2.platform_id = platforms.id
+        <!--include: sqlスニペットの読み込み-->
+        <include refid="selectMachines"></include>
         <!--#{id}のidはjava側のid-->
         where pcs2.id = #{id}
     </select>
