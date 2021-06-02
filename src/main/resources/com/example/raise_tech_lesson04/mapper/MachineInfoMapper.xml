@@ -73,7 +73,7 @@
     <!--指定IDの機材を削除-->
     <delete id="deleteById" parameterType="int">
         <!--#{id}のidはjava側のid-->
-        DELETE FROM pcs WHERE id = #{id}
+        delete from pcs2 where id = #{id}
     </delete>
 
     <!--機材データの更新-->
