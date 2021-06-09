@@ -17,6 +17,15 @@
             <!--errorclass: エラー時だけスタイルを切り替える-->
             <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform.name}">
             <div class="invalid-feedback" th:errors="*{platform.name}"></div>
+
+            <select id="platform-select" name="platform-select">
+                <option value="-1">---</option>
+                <!--*{value}Java::Mapの各要素はvalueを指定-->
+                <option th:each="item: ${platformItems}" th:object="${item}"
+                        th:value="*{value}"
+                        th:text="*{value}"
+                        th:selected="*{value}==${platformSelectedItemId}">selectItem</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="host_name">ホスト名</label>

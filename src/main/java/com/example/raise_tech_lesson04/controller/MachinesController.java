@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 機材情報ページの遷移を管理するクラス
@@ -28,6 +30,9 @@ public class MachinesController {
     //@Autowired合致するオブジェクトを探して自動生成してくれる
     @Autowired
     MachineInfoMapper machineInfoMapper;
+
+    //プラットフォーム情報プルダウンメニューでの選択されたメニューのID
+    private String platformSelectedItemId = "-1";
 
     /**
      * 機材リストメインページを表示する
@@ -73,6 +78,10 @@ public class MachinesController {
     @GetMapping("/edit/{id}")
     public String editMachine(@PathVariable("id") int id, Model model)
     {
+        //TODO: プラットフォーム情報をプルダウンメニューで表示する為、DBからviewへ渡す
+        model.addAttribute( "platformItems", getPlatformItems() );
+        model.addAttribute( "platformSelectedItemId", platformSelectedItemId );
+
         //遷移先のページで機材情報を表示する為、機材情報を取得して渡す
         MachineInfo m = machineInfoMapper.findById(id);
         model.addAttribute("machine", m);
@@ -136,5 +145,21 @@ public class MachinesController {
 
         machineInfoMapper.insert(machine);
         return "redirect:/machines";
+    }
+
+    /**
+     * プラットフォーム情報取得
+     * @return DB情のIDと名前の文字列のマップ
+     */
+    private Map<String, String> getPlatformItems()
+    {
+        Map<String, String> selectMap = new LinkedHashMap<String, String>();
+
+        //ToDo: DBから取得
+        selectMap.put( "1", "WIN" );
+        selectMap.put( "2", "MAC" );
+        selectMap.put( "3", "LINUX" );
+
+        return selectMap;
     }
 }

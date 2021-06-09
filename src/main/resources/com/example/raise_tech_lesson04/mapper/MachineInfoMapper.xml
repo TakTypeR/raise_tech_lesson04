@@ -81,11 +81,11 @@
     <!--ネストの場合は#{name.host}-->
     <update id="update">
         <!--各代入行の最後の","を忘れない-->
-        UPDATE pcs SET
+        update pcs set
             platform = #{platform},
             host_name = #{host_name},
             owner = #{owner}
-        WHERE id = #{id}
+        where id = #{id}
     </update>
 
     <!--新規機材の追加-->
