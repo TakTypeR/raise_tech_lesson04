@@ -35,9 +35,6 @@ public class MachinesController {
     @Autowired
     PlatformMapper platformMapper;
 
-    //プラットフォーム情報プルダウンメニューでの選択されたメニューのID
-    private String platformSelectedItemId = "-1";
-
     /**
      * 機材リストメインページを表示する
      * @param iModel 機材リストデータを管理するモデル
@@ -84,11 +81,6 @@ public class MachinesController {
     {
         //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
         model.addAttribute( "platformItems", getPlatformItems() );
-        //前回のメニュー選択番号
-        model.addAttribute( "platformSelectedItemId", platformSelectedItemId );
-
-        //TODO: 初期表示はplatformItems.platformIdに対応した名前
-        //TODO: platformSelectedItemIdを削除
         //遷移先のページで機材情報を表示する為、機材情報を取得して渡す
         MachineInfo m = machineInfoMapper.findById(id);
         model.addAttribute("machine", m);

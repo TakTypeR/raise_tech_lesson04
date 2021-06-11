@@ -32,6 +32,8 @@ import lombok.Data;
  */
 @Data
 public class MachineInfo {
+
+    public MachineInfo(){}
     /**
      * DBのcolumnに名前を合わせる
      * {@code @GeneratedValue}: 主キーの値を自動採番する. @Idを一緒に使う

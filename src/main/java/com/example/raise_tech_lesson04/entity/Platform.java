@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 public class Platform {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int id=0;
 
     /**
      * 実際のOS名(Win, Mac....)
