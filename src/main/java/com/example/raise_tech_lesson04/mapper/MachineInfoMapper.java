@@ -13,9 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MachineInfoMapper {
 
+    //pタグは段落を作る事が出来る
     /**
-     * 全機材情報の取得
-     * <p>Note: メソッド名はmapper.xmlのidと一致している事</p>
+     * 全機材情報の取得     *
+     * <p>Note: メソッド名はmapper.xmlのidと一致している事</p>     *
      * @return 機材情報リスト
      */
     List<MachineInfo> selectAll();

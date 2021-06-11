@@ -6,7 +6,9 @@
 package com.example.raise_tech_lesson04.controller;
 
 import com.example.raise_tech_lesson04.entity.MachineInfo;
+import com.example.raise_tech_lesson04.entity.Platform;
 import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
+import com.example.raise_tech_lesson04.mapper.PlatformMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,8 @@ public class MachinesController {
     //@Autowired合致するオブジェクトを探して自動生成してくれる
     @Autowired
     MachineInfoMapper machineInfoMapper;
+    @Autowired
+    PlatformMapper platformMapper;
 
     //プラットフォーム情報プルダウンメニューでの選択されたメニューのID
     private String platformSelectedItemId = "-1";
@@ -78,10 +82,13 @@ public class MachinesController {
     @GetMapping("/edit/{id}")
     public String editMachine(@PathVariable("id") int id, Model model)
     {
-        //TODO: プラットフォーム情報をプルダウンメニューで表示する為、DBからviewへ渡す
+        //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
         model.addAttribute( "platformItems", getPlatformItems() );
+        //前回のメニュー選択番号
         model.addAttribute( "platformSelectedItemId", platformSelectedItemId );
 
+        //TODO: 初期表示はplatformItems.platformIdに対応した名前
+        //TODO: platformSelectedItemIdを削除
         //遷移先のページで機材情報を表示する為、機材情報を取得して渡す
         MachineInfo m = machineInfoMapper.findById(id);
         model.addAttribute("machine", m);
@@ -149,17 +156,11 @@ public class MachinesController {
 
     /**
      * プラットフォーム情報取得
-     * @return DB情のIDと名前の文字列のマップ
+     * @return DB情のIDと名前の文字列のリスト
      */
-    private Map<String, String> getPlatformItems()
+    private  List<Platform> getPlatformItems()
     {
-        Map<String, String> selectMap = new LinkedHashMap<String, String>();
-
-        //ToDo: DBから取得
-        selectMap.put( "1", "WIN" );
-        selectMap.put( "2", "MAC" );
-        selectMap.put( "3", "LINUX" );
-
-        return selectMap;
+        List<Platform> selectList = platformMapper.selectAll();
+        return selectList;
     }
 }
