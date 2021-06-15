@@ -122,8 +122,15 @@ public class MachinesController {
      * @return 新規登録ページ名
      */
     @GetMapping("/new_machine")
-    public String newMachine(@ModelAttribute("machine") MachineInfo machine)
+    //public String newMachine(Model model)
+    public String newMachine(@ModelAttribute("machine") MachineInfo machine, Model model)
     {
+        //↓コンストラクタでプラットフォーム情報を初期化しているので不要
+        //MachineInfo machine = new MachineInfo(new Platform());
+        //model.addAttribute("machine", machine);
+
+        //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
+        model.addAttribute("platformItems", getPlatformItems());
         return "machine/machine_new";
     }
 

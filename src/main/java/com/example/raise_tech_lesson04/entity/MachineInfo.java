@@ -33,7 +33,14 @@ import lombok.Data;
 @Data
 public class MachineInfo {
 
-    public MachineInfo(){}
+    /**
+     *
+     */
+    public MachineInfo()
+    {
+        //新規作成時にhtml側でplatform.idを参照する部分があるので、初期データを予めセットする
+        platform = new Platform();
+    }
     /**
      * DBのcolumnに名前を合わせる
      * {@code @GeneratedValue}: 主キーの値を自動採番する. @Idを一緒に使う

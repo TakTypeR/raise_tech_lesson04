@@ -24,7 +24,7 @@ public class Platform {
      */
     @NotBlank
     @Size(max=24)
-    private String name;
+    private String name="UNKNOWN";
 
     public Platform(){}
 }

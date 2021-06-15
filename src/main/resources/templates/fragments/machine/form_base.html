@@ -12,6 +12,7 @@
         <input type="hidden" th:field="*{id}">
         <!--th:with: そのタグの子要素内で有効なローカル変数の宣言。${}で参照-->
         <div class="form-group" th:with="selectedPlatformId=*{platform.id}">
+<!--            <div class="form-group" th:with="selectedPlatformId=1">-->
             <!--for:input要素と紐づけを行うために名前を付ける-->
             <!--forのメリット: https://style.potepan.com/articles/20037.html-->
             <label for="platform">プラットフォーム</label>
