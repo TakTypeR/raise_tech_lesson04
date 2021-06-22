@@ -12,7 +12,6 @@
         <input type="hidden" th:field="*{id}">
         <!--th:with: そのタグの子要素内で有効なローカル変数の宣言。${}で参照-->
         <div class="form-group" th:with="selectedPlatformId=*{platform.id}">
-<!--            <div class="form-group" th:with="selectedPlatformId=1">-->
             <!--for:input要素と紐づけを行うために名前を付ける-->
             <!--forのメリット: https://style.potepan.com/articles/20037.html-->
             <label for="platform">プラットフォーム</label>
@@ -20,18 +19,18 @@
 <!--            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform.name}">-->
 <!--            <div class="invalid-feedback" th:errors="*{platform.name}"></div>-->
             <!--Bootstrapのフォームを使う場合は class="form-control"を指定-->
-            <select id="platform-select" name="platform-select" class="form-control">
+            <select class="form-control" th:field="*{platform}">
                 <!--*{value}Java::Mapの各要素はvalueを指定-->
                 <!--th:selected: 初期状態で表示するアイテムを選択する為の条件式-->
-                <option th:each="item: ${platformItems}" th:object="${item}"
-                        th:value="*{id}"
-                        th:text="*{name}"
-                        th:selected="*{id}==${selectedPlatformId}"></option>
+                <!--selectタグでth:fieldを使うためoptionタグでのth:objectを廃止?-->
+                <option th:each="item: ${platformItems}" th:value="${item.id}" th:text="${item.name}"
+                        th:selected="${item.id}==${selectedPlatformId}"></option>
                 <!--↑${}withで宣言した変数の参照-->
             </select>
         </div>
         <div class="form-group">
             <label for="host_name">ホスト名</label>
+            <!--errorclass: エラー時だけスタイルを切り替える-->
             <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{host_name}">
             <div class="invalid-feedback" th:errors="*{host_name}"></div>
         </div>

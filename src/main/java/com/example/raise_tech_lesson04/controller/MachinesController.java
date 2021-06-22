@@ -118,16 +118,17 @@ public class MachinesController {
 
     /**
      * 機材を新規登録するページへ遷移する
-     * @param machine 登録する機材用の領域(modelへ登録済み)
+     * @param model
      * @return 新規登録ページ名
      */
     @GetMapping("/new_machine")
-    //public String newMachine(Model model)
-    public String newMachine(@ModelAttribute("machine") MachineInfo machine, Model model)
+    public String newMachine(Model model)
+    //public String newMachine(@ModelAttribute("machine") MachineInfo machine, Model model)
     {
-        //↓コンストラクタでプラットフォーム情報を初期化しているので不要
-        //MachineInfo machine = new MachineInfo(new Platform());
-        //model.addAttribute("machine", machine);
+        //デフォルトコンストラクタだとプラットフォーム情報がnull。platformインスタンスを確保してから設定する
+        //コンストラクタ内でplatformをnewするとメモリ確保の制御が出来ないので、外から与える
+        MachineInfo machine = new MachineInfo(new Platform());
+        model.addAttribute("machine", machine);
 
         //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
         model.addAttribute("platformItems", getPlatformItems());

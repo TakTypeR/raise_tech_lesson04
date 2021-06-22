@@ -33,14 +33,17 @@ import lombok.Data;
 @Data
 public class MachineInfo {
 
+    public MachineInfo(){}
+
     /**
-     *
+     * Platform情報を外から与えるコンストラクタ
+     * @param platform 機材のプラットフォーム情報 not {@code null}
      */
-    public MachineInfo()
+    public MachineInfo(Platform platform)
     {
-        //新規作成時にhtml側でplatform.idを参照する部分があるので、初期データを予めセットする
-        platform = new Platform();
+        this.platform = platform;
     }
+
     /**
      * DBのcolumnに名前を合わせる
      * {@code @GeneratedValue}: 主キーの値を自動採番する. @Idを一緒に使う
