@@ -10,34 +10,28 @@
         <!--hidden: id等、表示されないが送信されるデータに使用-->
         <!--*{field-name}各フィールドはこのfragmentをincludeした直前のth:objectに対応-->
         <input type="hidden" th:field="*{id}">
-        <!--th:with: そのタグの子要素内で有効なローカル変数の宣言。${}で参照-->
-        <div class="form-group" th:with="selectedPlatformId=*{platform.id}">
-<!--        <div class="form-group">-->
+        <!--th:with="selectedPlatformId=*{platform.id}: そのタグの子要素内で有効なローカル変数の宣言。${}で参照-->
+        <div class="form-group">
             <!--デバッグ等値表示：th:text="${var}"  固定文字を一緒に表示する場合は||で囲む-->
-            <!--<p th:text="|selectedPlatformId: *{platform.id}|"></p>-->
             <!--for:input要素と紐づけを行うために名前を付ける-->
             <!--forのメリット: https://style.potepan.com/articles/20037.html-->
-            <label for="platform">プラットフォーム</label>
-            <!--errorclass: エラー時だけスタイルを切り替える-->
+            <label>プラットフォーム</label>
+<!--        <label for="platform">プラットフォーム</label>-->
+<!--            &lt;!&ndash;errorclass: エラー時だけスタイルを切り替える&ndash;&gt;-->
 <!--            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform.name}" id="platform">-->
 <!--            <div class="invalid-feedback" th:errors="*{platform.name}"></div>-->
             <!--Bootstrapのフォームを使う場合は class="form-control"を指定-->
-            <p th:text="|selected platform id: *{platform.id}|"></p>
-            <p th:text="|selected platform name: *{platform.name}|"></p>
-            <p th:text="|selectedPlatformI: ${selectedPlatformId}|"></p>
+            <!--<p th:text="|selected platform id: *{platform.id}|"></p>-->
             <!--selectは選択されたvalue(1個の情報)を返すので、classの構造を持つフィールドにバインドされていると値が設定されない-->
             <!--さらに、selectedが正しく機能しない-->
             <select class="form-control" name="selectedPlatform" th:field="*{platform.id}">
-<!--            <select class="form-control" name="selectedPlatform" id="platform">-->
                 <!--*{value}Java::Mapの各要素はvalueを指定-->
                 <!--th:selected: =trueのアイテムが初期選択される-->
-                <!--selectタグでth:fieldを使うためoptionタグでのth:objectを廃止?-->
+                <!--selectタグでth:fieldを使うためoptionタグでのth:objectを廃止-->
                 <option th:each="item: ${platformItems}"
                         th:value="${item.id}"
                         th:text="${item.name}"
-                        th:selected="${item.id}==${selectedPlatformId}">Options</option>
-<!--                <option th:each="item: ${platformItems}" th:value="${item.id}" th:text="${item.name}"-->
-<!--                        th:selected="${item.id}==${selectedPlatformId}"></option>-->
+                        th:selected="${item.id}==*{platform.id}">Options</option>
             </select>
         </div>
 

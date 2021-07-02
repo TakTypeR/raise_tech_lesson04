@@ -8,7 +8,7 @@
     <!--resultMap: リレーション構造を持つの検索結果の内容をJava側のオブジェクトへどうマッピングするかの定義-->
     <!--複数のSQLで利用するので、classの様に最初に記述する-->
     <resultMap id="MachineInfoResultMap" type="com.example.raise_tech_lesson04.entity.MachineInfo">
-        <!--property: java側プロパティ column: SQLのカラム-->
+        <!--property: javaのフィールド名 column: SQLのカラム名-->
         <!--column: SQL文でasによる別名を付けていたらそれを指定(オリジナルの名前だとダメ？)-->
         <!--カラム/Java側の内容によって、正しい属性を指定する-->
         <!--https://mybatis.org/mybatis-3/ja/sqlmap-xml.html#Result_Maps -->
@@ -37,6 +37,7 @@
             <!--Java側のフィールドに対応したデータを返す-->
             <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句では参照不可-->
             pcs2.id        as pcs_id,
+            <!--ここではDBのどのカラムをどんな名前で取得するかを定義しているので、DBにある内は記述を残してOK-->
             pcs2.platform  as pcs_platform,
             <!--別テーブルにあるカラムデータを取得-->
             platforms.id   as platforms_id,
@@ -77,12 +78,12 @@
     </delete>
 
     <!--機材データの更新-->
-    <!--パラメータが1個の場合、明示しなくても各メンバを#{}で参照可能-->
+    <!--パラメータが1個の場合、明示しなくてもJavaの各フィールドを#{}で参照可能-->
     <!--ネストの場合は#{name.host}-->
     <update id="update">
         <!--各代入行の最後の","を忘れない-->
-        update pcs set
-            platform = #{platform},
+        update pcs2 set
+            platform_id = #{platform.id},
             host_name = #{host_name},
             owner = #{owner}
         where id = #{id}
