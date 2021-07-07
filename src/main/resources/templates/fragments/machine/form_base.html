@@ -16,22 +16,17 @@
             <!--for:input要素と紐づけを行うために名前を付ける-->
             <!--forのメリット: https://style.potepan.com/articles/20037.html-->
             <label>プラットフォーム</label>
-<!--        <label for="platform">プラットフォーム</label>-->
-<!--            &lt;!&ndash;errorclass: エラー時だけスタイルを切り替える&ndash;&gt;-->
-<!--            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{platform.name}" id="platform">-->
-<!--            <div class="invalid-feedback" th:errors="*{platform.name}"></div>-->
             <!--Bootstrapのフォームを使う場合は class="form-control"を指定-->
             <!--<p th:text="|selected platform id: *{platform.id}|"></p>-->
-            <!--selectは選択されたvalue(1個の情報)を返すので、classの構造を持つフィールドにバインドされていると値が設定されない-->
+            <!--selectは選択されたvalue(1個の情報)を返すので、classの構造を持つフィールドをバインドする値が設定されない-->
             <!--さらに、selectedが正しく機能しない-->
+            <!--id: css, JavaScriptでタグを指定する時に使用/name: フォームでコントロールに付ける名前.フォームから送る場合は必須-->
+            <!--<select class="form-control" name="platform.id" id="platform">  th:field未使用版-->
             <select class="form-control" name="selectedPlatform" th:field="*{platform.id}">
-                <!--*{value}Java::Mapの各要素はvalueを指定-->
-                <!--th:selected: =trueのアイテムが初期選択される-->
-                <!--selectタグでth:fieldを使うためoptionタグでのth:objectを廃止-->
-                <option th:each="item: ${platformItems}"
-                        th:value="${item.id}"
-                        th:text="${item.name}"
-                        th:selected="${item.id}==*{platform.id}">Options</option>
+                <!--*{value}Java::Mapの各要素はvalueを指定/th:selected: =trueのアイテムが初期選択される-->
+                <!--ただし、th:filed=*{platform.id}を指定するとoptionのvalueと一致する場合は自動的に選択状態となる-->
+                <!--そのためselectedの指定は不要-->
+                <option th:each="item: ${platformItems}" th:value="${item.id}" th:text="${item.name}">Options</option>
             </select>
         </div>
 
