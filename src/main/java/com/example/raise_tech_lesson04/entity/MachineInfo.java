@@ -55,6 +55,7 @@ public class MachineInfo {
 
     /**
      * OS種別(テーブル参照)：Win/Mac/Linux
+     * idを保持するだけでもＯＫだが、ページで表示する時には名前を保持している方が良いのでメンバとして残す
      */
     private Platform platform;
 

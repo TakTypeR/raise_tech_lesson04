@@ -112,6 +112,10 @@ public class MachinesController {
             return "machine/machine_edit";
         }
 
+        //フォームセレクトではid情報しか設定されないのでplatformNameを設定
+        Platform platform = platformMapper.findById(machine.getPlatform().getId());
+        machine.setPlatform(platform);
+
         machineInfoMapper.update(machine);
         return "redirect:/machines";
     }

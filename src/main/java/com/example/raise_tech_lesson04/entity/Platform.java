@@ -15,12 +15,16 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 public class Platform {
+    /**
+     * DB::platformのid情報
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id=0;
 
     /**
      * 実際のOS名(Win, Mac....)
+     * select menu等で情報を取得する為に必要
      */
     @NotBlank
     @Size(max=24)

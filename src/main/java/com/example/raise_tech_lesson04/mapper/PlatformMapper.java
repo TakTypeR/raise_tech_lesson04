@@ -13,4 +13,11 @@ public interface PlatformMapper {
      * @return プラットフォーム情報
      */
     List<Platform> selectAll();
+
+    /**
+     * 指定IDのプラットフォーム情報を取得
+     * @param id 検索対象ID
+     * @return プラットフォーム情報
+     */
+    Platform findById(int id);
 }

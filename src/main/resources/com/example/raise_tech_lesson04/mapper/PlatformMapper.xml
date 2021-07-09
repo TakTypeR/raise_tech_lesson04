@@ -9,4 +9,8 @@
         <!--select:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
         select * from platforms;
     </select>
+
+    <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Platform">
+        select * from platforms where id = #{id}
+    </select>
 </mapper>
