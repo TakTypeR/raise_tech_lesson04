@@ -98,8 +98,12 @@
         そうしないと、新規追加時にidエラーになる(Field 'id' doesn't have a default value)-->
     <insert id="insert">
         <!--テーブルpcsの各要素に対して値を設定する-->
-        INSERT INTO pcs (platform, host_name, owner)
-        VALUES (#{platform}, #{host_name}, #{owner})
+<!--        INSERT INTO pcs (platform, host_name, owner)-->
+<!--        VALUES (#{platform}, #{host_name}, #{owner})-->
+
+        <!--テーブルpcsの各要素に対して値を設定する-->
+        INSERT INTO pcs2 (host_name, owner, platform, platform_id)
+        VALUES (#{host_name}, #{owner}, #{platform.name}, #{platform.id} )
     </insert>
 
     <!--numOfMachines:登録機材数の取得-->
