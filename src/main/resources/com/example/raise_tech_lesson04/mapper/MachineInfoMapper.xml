@@ -37,8 +37,6 @@
             <!--Java側のフィールドに対応したデータを返す-->
             <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句では参照不可-->
             pcs2.id        as pcs_id,
-            <!--@@@refactor:delete-->
-            pcs2.platform  as pcs_platform,
             <!--別テーブルにあるカラムデータを取得-->
             platforms.id   as platforms_id,
             platforms.name as platforms_name,
@@ -86,8 +84,6 @@
         update pcs2 set
             host_name = #{host_name},
             owner = #{owner},
-            <!--@@@refactor:delete-->
-            platform = #{platform.name},
             platform_id = #{platform.id}
         where id = #{id}
     </update>
@@ -102,8 +98,8 @@
 <!--        VALUES (#{platform}, #{host_name}, #{owner})-->
 
         <!--テーブルpcsの各要素に対して値を設定する-->
-        INSERT INTO pcs2 (host_name, owner, platform, platform_id)
-        VALUES (#{host_name}, #{owner}, #{platform.name}, #{platform.id} )
+        INSERT INTO pcs2 (host_name, owner, platform_id)
+        VALUES (#{host_name}, #{owner}, #{platform.id} )
     </insert>
 
     <!--numOfMachines:登録機材数の取得-->
