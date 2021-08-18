@@ -18,23 +18,22 @@ public class MachineService {
     /**
      * 全機材情報の取得
      */
-    List<MachineInfo> getAllMachines() {
-        List<MachineInfo> machines = machineInfoMapper.selectAll();
-
-        return machines;
+    public List<MachineInfo> getAllMachines() {
+        //DBからデータ取得。mapper.xmlで関連付けられたSQLが呼ばれる
+        return machineInfoMapper.selectAll();
     }
 
     /**
      * 指定IDの機材を取得
      */
-    MachineInfo getMachine(int id) {
+    public MachineInfo getMachine(int id) {
         return machineInfoMapper.findById(id);
     }
 
     /**
      * 指定IDの機材を削除
      */
-    void deleteMachine(int id) {
+    public void deleteMachine(int id) {
         machineInfoMapper.deleteById(id);
     }
 
@@ -43,7 +42,7 @@ public class MachineService {
      * 入力された機材情報が持つIDに対応した機材情報を更新する
      * @param machineInfo 更新する機材情報
      */
-    void updateMachine( MachineInfo machineInfo ) {
+    public void updateMachine( MachineInfo machineInfo ) {
         machineInfoMapper.update(machineInfo);
     }
 
@@ -51,7 +50,7 @@ public class MachineService {
      * 機材情報を登録
      * @param machineInfo 追加する機材情報
      */
-    void insertMachine( MachineInfo machineInfo ) {
+    public void insertMachine( MachineInfo machineInfo ) {
         machineInfoMapper.insert(machineInfo);
     }
 
@@ -59,7 +58,7 @@ public class MachineService {
      * 登録されている機材情報数の取得
      * @return 登録された機材情報数
      */
-    int numOfMachines() {
+    public int numOfMachines() {
         return machineInfoMapper.numOfMachines();
     }
 

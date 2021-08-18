@@ -9,6 +9,7 @@ import com.example.raise_tech_lesson04.entity.MachineInfo;
 import com.example.raise_tech_lesson04.entity.Platform;
 import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
 import com.example.raise_tech_lesson04.mapper.PlatformMapper;
+import com.example.raise_tech_lesson04.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.crypto.Mac;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +36,8 @@ public class MachinesController {
     MachineInfoMapper machineInfoMapper;
     @Autowired
     PlatformMapper platformMapper;
+    @Autowired
+    MachineService machineService;
 
     /**
      * 機材リストメインページを表示する
@@ -43,7 +47,7 @@ public class MachinesController {
     @RequestMapping("/machines")
     public String machines(Model iModel){
         //DBからデータ取得。mapper.xmlで関連付けられたSQLが呼ばれる
-        List<MachineInfo> mList = machineInfoMapper.selectAll();
+        List<MachineInfo> mList = machineService.getAllMachines();
         //対応するresourceファイルから参照するために、値を登録
         iModel.addAttribute("machineInfo", mList);
 
@@ -122,7 +126,7 @@ public class MachinesController {
 
     /**
      * 機材を新規登録するページへ遷移する
-     * @param model
+     * @param model　ページのモデル情報
      * @return 新規登録ページ名
      */
     @GetMapping("/new_machine")
@@ -164,7 +168,6 @@ public class MachinesController {
      */
     private  List<Platform> getPlatformItems()
     {
-        List<Platform> selectList = platformMapper.selectAll();
-        return selectList;
+        return platformMapper.selectAll();
     }
 }
