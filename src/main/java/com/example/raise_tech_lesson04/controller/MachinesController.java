@@ -33,11 +33,9 @@ public class MachinesController {
 
     //@Autowired合致するオブジェクトを探して自動生成してくれる
     @Autowired
-    MachineInfoMapper machineInfoMapper;
+    MachineService machineService;
     @Autowired
     PlatformMapper platformMapper;
-    @Autowired
-    MachineService machineService;
 
     /**
      * 機材リストメインページを表示する
@@ -52,7 +50,7 @@ public class MachinesController {
         iModel.addAttribute("machineInfo", mList);
 
         //SQLをコールしても良いが、上記のlistのサイズから分かるのでカット
-        //int num = machineInfoMapper.numOfMachines();
+        //int num = machineService.numOfMachines();
         iModel.addAttribute("numOfMachines", mList.size());
 
         return "machines";
@@ -69,7 +67,7 @@ public class MachinesController {
     public String deleteMachine(@PathVariable("id") int id)
     {
         //更新したＤＢで持って、同ページを再表示
-        machineInfoMapper.deleteById(id);
+        machineService.deleteMachine(id);
         return "redirect:/machines";
     }
 
@@ -86,7 +84,7 @@ public class MachinesController {
         //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
         model.addAttribute( "platformItems", getPlatformItems() );
         //遷移先のページで機材情報を表示する為、機材情報を取得して渡す
-        MachineInfo m = machineInfoMapper.findById(id);
+        MachineInfo m = machineService.getMachine(id);
         model.addAttribute("machine", m);
 
         return "machine/machine_edit";
@@ -120,7 +118,7 @@ public class MachinesController {
         Platform platform = platformMapper.findById(machine.getPlatform().getId());
         machine.setPlatform(platform);
 
-        machineInfoMapper.update(machine);
+        machineService.updateMachine(machine);
         return "redirect:/machines";
     }
 
@@ -158,7 +156,7 @@ public class MachinesController {
             return "machine/machine_new";
         }
 
-        machineInfoMapper.insert(machine);
+        machineService.insertMachine(machine);
         return "redirect:/machines";
     }
 

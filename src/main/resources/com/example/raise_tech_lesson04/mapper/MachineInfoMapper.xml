@@ -104,6 +104,6 @@
 
     <!--numOfMachines:登録機材数の取得-->
     <select id="numOfMachines" resultType="_int">
-        SELECT COUNT(*) FROM pcs;
+        SELECT COUNT(*) FROM pcs2;
     </select>
 </mapper>
