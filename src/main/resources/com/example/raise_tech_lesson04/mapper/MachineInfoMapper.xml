@@ -36,19 +36,19 @@
         select
             <!--Java側のフィールドに対応したデータを返す-->
             <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句では参照不可-->
-            pcs2.id        as pcs_id,
+            pcs.id        as pcs_id,
             <!--別テーブルにあるカラムデータを取得-->
             platforms.id   as platforms_id,
             platforms.name as platforms_name,
-            pcs2.host_name as pcs_host_name,
-            pcs2.owner     as pcs_owner
+            pcs.host_name as pcs_host_name,
+            pcs.owner     as pcs_owner
             <!--from join on: from, jointのテーブルの結合を行う。条件はon-->
             <!--from,join句ではスペース区切りでエイリアス可能-->
             <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
             <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
-        from pcs2
+        from pcs
         inner join platforms
-        on pcs2.platform_id = platforms.id
+        on pcs.platform_id = platforms.id
     </sql>
 
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
@@ -67,13 +67,13 @@
         <!--include: sqlスニペットの読み込み-->
         <include refid="selectMachines"></include>
         <!--#{id}のidはjava側のid-->
-        where pcs2.id = #{id}
+        where pcs.id = #{id}
     </select>
 
     <!--指定IDの機材を削除-->
     <delete id="deleteById" parameterType="int">
         <!--#{id}のidはjava側のid-->
-        delete from pcs2 where id = #{id}
+        delete from pcs where id = #{id}
     </delete>
 
     <!--機材データの更新-->
@@ -81,7 +81,7 @@
     <!--ネストの場合は#{name.host}-->
     <update id="update">
         <!--各代入行の最後の","を忘れない-->
-        update pcs2 set
+        update pcs set
             host_name = #{host_name},
             owner = #{owner},
             platform_id = #{platform.id}
@@ -94,16 +94,12 @@
         そうしないと、新規追加時にidエラーになる(Field 'id' doesn't have a default value)-->
     <insert id="insert">
         <!--テーブルpcsの各要素に対して値を設定する-->
-<!--        INSERT INTO pcs (platform, host_name, owner)-->
-<!--        VALUES (#{platform}, #{host_name}, #{owner})-->
-
-        <!--テーブルpcsの各要素に対して値を設定する-->
-        INSERT INTO pcs2 (host_name, owner, platform_id)
+        INSERT INTO pcs (host_name, owner, platform_id)
         VALUES (#{host_name}, #{owner}, #{platform.id} )
     </insert>
 
     <!--numOfMachines:登録機材数の取得-->
     <select id="numOfMachines" resultType="_int">
-        SELECT COUNT(*) FROM pcs2;
+        SELECT COUNT(*) FROM pcs;
     </select>
 </mapper>
