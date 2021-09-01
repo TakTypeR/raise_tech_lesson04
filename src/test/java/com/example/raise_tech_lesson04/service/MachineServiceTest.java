@@ -1,30 +1,60 @@
 package com.example.raise_tech_lesson04.service;
 
 import com.example.raise_tech_lesson04.entity.MachineInfo;
+import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.when;
 
 
-//
+//JUnit5ベース
 @SpringBootTest
 public class MachineServiceTest {
-    @Autowired
+    @Mock
+    //本番DBのデータを使いたくない時、@Mockで疑似のインスタンスを生成してテストする
+    //これをMachineServiceから呼ぶ
+    MachineInfoMapper machineInfoMapper;
+    //Mockを使う場合@Autowired->@InjectMocksへ変更
+    //@Autowired
+    @InjectMocks
     MachineService machineService;
 
+    //@BeforeAll::テスト(@Test)前に行う準備処理(static method)を記述(@Before @JUnit4)
+    //全テスト前に1回だけ呼ばれる
+    @BeforeAll
+    public static  void setupAll(){
+    }
+
+    //@Test::以下のメソッドをテスト対象として登録
     @Test
     //メソッド名と実行結果はhtmlで出力されるので、メソッド名が日本語の方が結果を確認しやすい
     void MachineInfo_全件取得出来る_件数確認_正常() {
+        //Mockを使ったテスト:準備
+        List<MachineInfo> ret = new ArrayList<MachineInfo>();
+        MachineInfo m = new MachineInfo();
+        ret.add(m);
+        //when: selectAll()がコールされたら theReturn: retを返す
+        when(machineInfoMapper.selectAll()).thenReturn(ret);
+
         List<MachineInfo> list = machineService.getAllMachines();
         assertThat(list.size(), not(0));   //0軒以上ある筈
-        assertThat(list.size(), is(5));
-    }
+        //mockの場合は追加したのは1件なので1の筈
+        assertThat(list.size(), is(1));
+    }   //assertThat(list.size(), is(5));
 
+    //@Disabled: テスト実行を無効化(@Ignore @JUnit4)
+    @Disabled
     @Test
     void MachineInfo_リストのプラットフォームとホスト名と所有者が取得できる_正常(){
         List<MachineInfo> list = machineService.getAllMachines();
