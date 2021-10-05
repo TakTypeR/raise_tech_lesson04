@@ -33,16 +33,30 @@ import lombok.Data;
 @Data
 public class MachineInfo {
 
+    /**
+     * Constructors
+     */
     public MachineInfo(){}
-
+    public MachineInfo(int id, String hostName, String owner, Platform platform)
+    {
+        setId(id);
+        setHost_name(hostName);
+        setOwner(owner);
+        setPlatform(platform);
+    }
     /**
      * Platform情報を外から与えるコンストラクタ
      * @param platform 機材のプラットフォーム情報 not {@code null}
      */
     public MachineInfo(Platform platform)
     {
-        this.platform = platform;
+        setPlatform(platform);
     }
+
+    /**
+     * プラットフォーム文字列を取得
+     */
+    public String getPlatformName(){ return platform.getName(); }
 
     /**
      * DBのcolumnに名前を合わせる

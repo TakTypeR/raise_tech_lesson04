@@ -15,6 +15,11 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 public class Platform {
+
+    public Platform(int id, String name){
+        this.id = id;
+        this.name = name;
+    }
     /**
      * DB::platformのid情報
      */
