@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.crypto.Mac;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,10 +28,12 @@ public class MachineServiceTest {
     MachineInfoMapper machineInfoMapper;
 
     //Mockを使う場合@Autowired->@InjectMocksへ変更
+    //test target
+    @InjectMocks
+    MachineService machineServiceMock;
+
     //DBを使う時は@Autowired
     @Autowired
-    //@InjectMocks
-    //test target
     MachineService machineService;
 
     //@BeforeAll::テスト(@Test)前に行う準備処理(static method)を記述(@Before @JUnit4)
@@ -47,7 +48,6 @@ public class MachineServiceTest {
      * getAllMachines()のテスト
      */
     //@Test::以下のメソッドをテスト対象として登録
-    @Disabled
     @Test
     //メソッド名と実行結果はhtmlで出力されるので、メソッド名が日本語の方が結果を確認しやすい
     void MachineInfo_全件取得出来る_件数確認_正常() {
@@ -58,7 +58,7 @@ public class MachineServiceTest {
         //when: selectAll()がコールされたら theReturn: retを返す
         when(machineInfoMapper.selectAll()).thenReturn(ret);
 
-        List<MachineInfo> list = machineService.getAllMachines();
+        List<MachineInfo> list = machineServiceMock.getAllMachines();
         assertThat(list.size(), not(0));   //0軒以上ある筈
         //mockの場合は追加したのは1件なので1の筈
         assertThat(list.size(), is(1));
@@ -67,7 +67,6 @@ public class MachineServiceTest {
     /**
      * getMachine()テスト
      */
-    @Disabled
     @Test
     void MachineInfo_指定IDの機材情報を取得できる_正常(){
 
@@ -75,7 +74,7 @@ public class MachineServiceTest {
         m.setId(10); m.setHost_name("PC0002"); m.setOwner("鈴木");
         when(machineInfoMapper.findById(10)).thenReturn(m);
 
-        m = machineService.getMachine(10);
+        m = machineServiceMock.getMachine(10);
         //色々な検証メソッドの例
         assertThat(m.getPlatformName(), is("WIN"));
         assertThat(m.getHost_name(), equalTo("PC0002"));
@@ -85,30 +84,39 @@ public class MachineServiceTest {
     /**
      * deleteMachine()テスト
      */
-    @Disabled
+    //@Disabled: テスト実行を無効化(@Ignoreは@JUnit4版)
+    //@Disabled
     @Test
     void MachineInfo_機材情報の削除_正常(){
-        int numOfMachineBefore = machineService.numOfMachines();
         //DB先頭の機材を削除
         List<MachineInfo> machines = machineService.getAllMachines();
+        int size = machines.size();
+        if(size > 0) {
+            //TODO: DBのレコードが変わらない様に最後尾を消して、最後に追加する
+            int numOfMachineBefore = machineService.numOfMachines();
+            MachineInfo m = machines.get(size-1);
+            int numOfMachineAfter = machineService.deleteMachine(m.getId());
+            assertThat(numOfMachineBefore-numOfMachineAfter, is(1));
 
-        int numOfMachineAfter = machineService.numOfMachines();
+            //TODO: deleteされた後もmの値は有効？
+        }
     }
 
     //@Disabled: テスト実行を無効化(@Ignoreは@JUnit4版)
     @Test
     void MachineInfo_リストのプラットフォームとホスト名と所有者が取得できる_正常(){
+        //DBの値を参照するのでMockじゃないServiceをコール
         List<MachineInfo> list = machineService.getAllMachines();
 
         MachineInfo m = list.get(0);
-        assertThat(m.getPlatform().getName(), is("WIN"));
+        assertThat(m.getPlatform().getName(), is("MAC"));
         assertThat(m.getHost_name(), is("PC0002"));
-        assertThat(m.getOwner(), is("鈴木"));
+        assertThat(m.getOwner(), is("大谷"));
 
         m = list.get(2);
-        assertThat(m.getPlatform().getName(), is("WIN"));
-        assertThat(m.getHost_name(), is("PC0003"));
-        assertThat(m.getOwner(), is("小寺"));
+        assertThat(m.getPlatform().getName(), is("LINUX"));
+        assertThat(m.getHost_name(), is("SV0000"));
+        assertThat(m.getOwner(), is("IT-Jチーム"));
     }
 
 }

@@ -32,9 +32,11 @@ public class MachineService {
 
     /**
      * 指定IDの機材を削除
+     * @return 削除後のDBのレコード数
      */
-    public void deleteMachine(int id) {
+    public int deleteMachine(int id) {
         machineInfoMapper.deleteById(id);
+        return numOfMachines();
     }
 
     /**
