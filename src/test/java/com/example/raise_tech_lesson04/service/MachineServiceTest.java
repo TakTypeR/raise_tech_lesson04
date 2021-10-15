@@ -20,6 +20,11 @@ import static org.mockito.Mockito.when;
 
 
 //JUnit5ベース
+
+//テストクラス作成方法/自動作成でなく手動で作成
+//1,test以下にpackage作成(テスト対象クラスと同じパス)
+//2.test classを通常classの方法で作成
+//3.クラスに@SpringBootTestを追加
 @SpringBootTest
 public class MachineServiceTest {
     @Mock
@@ -92,31 +97,33 @@ public class MachineServiceTest {
         List<MachineInfo> machines = machineService.getAllMachines();
         int size = machines.size();
         if(size > 0) {
-            //TODO: DBのレコードが変わらない様に最後尾を消して、最後に追加する
+            //DBのレコード数、順番が変わらない様に最後の要素でテストする
             int numOfMachineBefore = machineService.numOfMachines();
             MachineInfo m = machines.get(size-1);
             int numOfMachineAfter = machineService.deleteMachine(m.getId());
             assertThat(numOfMachineBefore-numOfMachineAfter, is(1));
 
-            //TODO: deleteされた後もmの値は有効？
+            //deleteされた後もmの値は有効
+            machineService.insertMachine(m);
         }
     }
 
     //@Disabled: テスト実行を無効化(@Ignoreは@JUnit4版)
+    @Disabled
     @Test
     void MachineInfo_リストのプラットフォームとホスト名と所有者が取得できる_正常(){
         //DBの値を参照するのでMockじゃないServiceをコール
         List<MachineInfo> list = machineService.getAllMachines();
 
         MachineInfo m = list.get(0);
+        assertThat(m.getPlatform().getName(), is("WIN"));
+        assertThat(m.getHost_name(), is("PC0001"));
+        assertThat(m.getOwner(), is("鈴木"));
+
+        m = list.get(1);
         assertThat(m.getPlatform().getName(), is("MAC"));
         assertThat(m.getHost_name(), is("PC0002"));
         assertThat(m.getOwner(), is("大谷"));
-
-        m = list.get(2);
-        assertThat(m.getPlatform().getName(), is("LINUX"));
-        assertThat(m.getHost_name(), is("SV0000"));
-        assertThat(m.getOwner(), is("IT-Jチーム"));
     }
 
 }

@@ -52,8 +52,9 @@ public class MachineService {
      * 機材情報を登録
      * @param machineInfo 追加する機材情報
      */
-    public void insertMachine( MachineInfo machineInfo ) {
+    public int insertMachine( MachineInfo machineInfo ) {
         machineInfoMapper.insert(machineInfo);
+        return numOfMachines();
     }
 
     /**
