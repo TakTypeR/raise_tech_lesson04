@@ -57,7 +57,7 @@ public class MachineServiceTest {
     //メソッド名と実行結果はhtmlで出力されるので、メソッド名が日本語の方が結果を確認しやすい
     void MachineInfo_全件取得出来る_件数確認_正常() {
         //Mockを使ったテスト:準備
-        List<MachineInfo> ret = new ArrayList<MachineInfo>();
+        List<MachineInfo> ret = new ArrayList<>();
         MachineInfo m = new MachineInfo();
         ret.add(m);
         //when: selectAll()がコールされたら theReturn: retを返す
@@ -106,6 +106,61 @@ public class MachineServiceTest {
             //deleteされた後もmの値は有効
             machineService.insertMachine(m);
         }
+    }
+
+    /**
+     * updateMachine()テスト
+     * テスト内容：機材情報を更新。再取得して各要素を比較
+     * テスト終了後、元データに戻す
+     */
+    @Test
+    void MachineInf_機材情報の更新_正常(){
+        int numOfMachines = machineService.numOfMachines();
+        if(numOfMachines > 0)
+        {
+            List<MachineInfo> machines = machineService.getAllMachines();
+            MachineInfo m = machines.get(numOfMachines-1);
+            int id = m.getId();
+            String hostName = m.getHost_name(), owner = m.getOwner();
+            Platform platform = m.getPlatform();
+
+            //情報更新
+            m.setHost_name("SV1111");
+            m.setOwner("Tester");
+            machineService.updateMachine(m);
+
+            //正しく更新されたか？
+            MachineInfo updatedMachine = machineService.getMachine(id);
+            assertThat(updatedMachine.getHost_name(), is("SV1111"));
+            assertThat(updatedMachine.getOwner(), is("Tester"));
+
+            //元のデータに戻す
+            m.setHost_name(hostName);
+            m.setOwner(owner);
+            machineService.updateMachine(m);
+        }
+    }
+
+    /**
+     * insertMachine()テスト
+     * 追加したい要素が正しく追加さているか
+     */
+    @Test
+    void MachineInfo_機材情報の追加_正常(){
+        int numOfMachinesBefore = machineService.numOfMachines();
+        MachineInfo m = new MachineInfo(0, "PC9999", "Tester", new Platform(1, "WIN"));
+        int numOfMachinesAfter = machineService.insertMachine(m);
+        assertThat(numOfMachinesAfter-numOfMachinesBefore, is(1));
+
+        List<MachineInfo> machines = machineService.getAllMachines();
+        m = machines.get(machines.size()-1);
+        //追加した要素が正しく取得できるか
+        assertThat(m.getPlatform().getName(), is("WIN"));
+        assertThat(m.getHost_name(), is("PC9999"));
+        assertThat(m.getOwner(), is("Tester"));
+
+        //追加分は削除する
+        machineService.deleteMachine(m.getId());
     }
 
     //@Disabled: テスト実行を無効化(@Ignoreは@JUnit4版)
