@@ -1,12 +1,20 @@
 <!DOCTYPE html>
+
+<!--参考書籍: Spring Boot2入門::6.3/CRUD操作が出来る様にする-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <!--共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
+<!--id: htmlタグに設定できる属性(名前, ブロック名みたいなもの)/id: ページ内で1つ/class重複可能-->
+<!--id, classをキーにしてcssを適用したり、div要素のデータを取得したりが可能-->
+<!--あくまで設定機能がメインで、参照機能はサブ-->
+<!--参考-->
+<!--https://www.sejuku.net/blog/85629-->
+<!--https://web-camp.io/magazine/archives/12439-->
 <body id="page-top">
-    <!--page wrapper-->
+    <!--page wrapper:css-->
     <!-- 説明:https://coliss.com/articles/build-websites/operation/css/styling-layout-wrappers-in-css.html -->
     <div id="wrapper">
         <th:block th:insert="fragments/sidebar::sidebar"></th:block>
@@ -89,7 +97,7 @@
             </div>
         </div>  <!--main-->
     </div>
-
+    <!--BootstrapのJavascriptは一番下に記述する-->
     <th:block th:insert="fragments/base::scripts"></th:block>
 </body>
 </html>

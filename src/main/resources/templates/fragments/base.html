@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <!--各htmlで読み込む共通定義 fragment名でブロックごとに読み込み可能-->
+<!--thymeleaf: Java XML/MHTML/HTML5テンプレートエンジン-->
+<!--Web/非Web環境で機能する-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <!---->
@@ -9,8 +11,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Project management</title>
 
-        <!--Bootstrapの設定/html, cssベースのレスポンシブデザインテンプレート-->
+        <!--Bootstrapの設定/html, cssベースのレスポンシブデザインテンプレートフレームワーク-->
         <!--レスポンシブ:各デバイスに合わせてサイズ・配置を自動調整する-->
+        <!--class=XXXのタグはBootstrapを使っている場合が多い-->
         <!--pom.xmlにwebjars-locatorを追加すると、/bootstrap/4.5.3/cssの様なバージョン表記が不要-->
         <!--<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet"><link>-->
         <!--link:別ファイルやページを関連付ける。head内に書く-->
