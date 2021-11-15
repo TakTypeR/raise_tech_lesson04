@@ -6,7 +6,10 @@
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
 <body id="page-top">
-
+    <div id="wrapper">
+        <th:block th:insert="fragments/sidebar::sidebar"></th:block>
+    </div>
+    <!--BootstrapのJavascriptは一番下に記述する-->
     <th:block th:insert="fragments/base::scripts"></th:block>
 </body>
 </html>

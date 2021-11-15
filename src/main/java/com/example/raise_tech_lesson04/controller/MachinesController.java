@@ -1,5 +1,5 @@
 /**
- * 機材情報ページの遷移管理
+ * 機材情報メインページの遷移管理
  * @author Takahsia Suzuki
  */
 
@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * 機材情報ページの遷移を管理するクラス
  */
-@RequiredArgsConstructor
+@RequiredArgsConstructor            //Lombok
 @Controller
 public class MachinesController {
 
