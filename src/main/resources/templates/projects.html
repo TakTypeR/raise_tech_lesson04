@@ -8,6 +8,60 @@
 <body id="page-top">
     <div id="wrapper">
         <th:block th:insert="fragments/sidebar::sidebar"></th:block>
+
+        <!--main-->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="card shadow my-4">
+                        <!--上段(header):アイテム数/下段:アイテムリスト-->
+                        <div class="card-header py-3">
+                            <!--textに文字列を埋め込む場合は | or 'で囲む-->
+                                <h6 class="m-0 font-weight-bold text-primary" th:text="|プロジェクトリスト(${numOfProjects})|">
+                                プロジェクトリスト
+                            </h6>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="card-responsive">
+                                <div th:if="${projects.size()==0}">
+                                    該当データがありません
+                                </div>
+
+                                <table class="table table-bordered table-striped table-condensed"
+                                       th:if="${projects.size()>0}">
+                                    <thead>
+                                        <tr>
+                                            <th>ＩＤ</th>
+                                            <th>プロジェクト名</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="project: ${projects}" th:object="${project}">
+                                            <td th:text="*{id}"></td>
+                                            <td th:text="*{name}"></td>
+                                            <!--各列に編集、削除ボタンの表示-->
+                                            <td>
+                                                <a class="btn btn-primary btn-icon-split" th:href="@{/project/edit/{id}(id=*{id})}">
+                                                    <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
+                                                    <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
+                                                    <span class="text">編集</span>
+                                                </a>
+                                                <a class="btn btn-danger btn-icon-split" th:href="@{/project/delete/{id}(id=*{id})}">
+                                                    <span class="text">削除</span>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!--BootstrapのJavascriptは一番下に記述する-->
     <th:block th:insert="fragments/base::scripts"></th:block>

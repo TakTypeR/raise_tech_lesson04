@@ -63,7 +63,7 @@ public class MachinesController {
      * @param id 削除対象の機材情報ID
      * @return 削除後の遷移先機材リストページ
      */
-    @GetMapping("/delete/{id}")
+    @GetMapping("/machine/delete/{id}")
     public String deleteMachine(@PathVariable("id") int id)
     {
         //更新したＤＢで持って、同ページを再表示
@@ -78,7 +78,7 @@ public class MachinesController {
      * @param model 機材リストデータを管理するモデル
      * @return 更新ページ名
      */
-    @GetMapping("/edit/{id}")
+    @GetMapping("/machine/edit/{id}")
     public String editMachine(@PathVariable("id") int id, Model model)
     {
         //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
