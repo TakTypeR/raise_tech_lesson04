@@ -47,7 +47,7 @@
                                                     <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
                                                     <span class="text">編集</span>
                                                 </a>
-                                                <a class="btn btn-danger btn-icon-split" th:href="@{/project/delete/{id}(id=*{id})}">
+                                                <a id="delete_target" class="btn btn-danger btn-icon-split" th:href="@{/project/delete/{id}(id=*{id})}">
                                                     <span class="text">削除</span>
                                                 </a>
                                             </td>
@@ -65,5 +65,12 @@
     </div>
     <!--BootstrapのJavascriptは一番下に記述する-->
     <th:block th:insert="fragments/base::scripts"></th:block>
+    <!--JSをロードする時は↑の外側へ記述/path:resources/staticからの相対パス-->
+    <!--ロードタイミング-->
+    <!--window.onloadは画像を含めた全てのオブジェクトのロード完了後　-->
+    <!--画像等の重いデータ前 and ページロード後にしたい時は</body>前にロードする    -->
+    <!--ページロード前の場合は、head要素に記述    -->
+    <!--参考: https://www.nishishi.com/javascript-tips/onload-page.html -->
+    <script src="/js/project_view.js"></script>
 </body>
 </html>
