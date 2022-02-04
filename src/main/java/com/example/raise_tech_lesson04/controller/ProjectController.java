@@ -43,4 +43,12 @@ public class ProjectController {
         return "project/project_edit";
     }
 
+    @GetMapping("/project/delete/{id}")
+    public  String deleteProject(@PathVariable("id") int id)
+    {
+        //更新したDBで、同ページを再表示
+        projectService.deleteProject(id);
+        return "redirect:/projects";
+    }
+
 }

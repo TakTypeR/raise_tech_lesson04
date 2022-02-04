@@ -17,6 +17,12 @@ public interface ProjectMapper {
     List<Project> selectAll();
 
     /**
+     * 指定IDの機材情報を削除する
+     * @param id 削除対象の機材情報ID
+     */
+    void deleteById(int id);
+
+    /**
      * DBに登録されているプロジェクト情報数の取得
      * @return 登録された機材情報数
      */

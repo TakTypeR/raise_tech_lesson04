@@ -20,5 +20,17 @@ public class ProjectService {
     {
         return projectMapper.selectAll();
     }
+
+    /**
+     * 指定IDのプロジェクトを削除する
+     * @param id 削除するプロジェクトID
+     * @return 削除後のDBのレコード数
+     */
+    public int deleteProject(int id)
+    {
+        projectMapper.deleteById(id);
+        return numOfProject();
+    }
+
     public int numOfProject(){ return projectMapper.numOfProjects(); }
 }
