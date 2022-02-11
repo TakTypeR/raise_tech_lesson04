@@ -17,10 +17,24 @@ public interface ProjectMapper {
     List<Project> selectAll();
 
     /**
+     * 指定IDのプロジェクト情報を検索する
+     * @param id 検索対象の機材情報ID
+     * @return プロジェクト情報
+     */
+    Project findById(int id);
+
+    /**
      * 指定IDの機材情報を削除する
      * @param id 削除対象の機材情報ID
      */
     void deleteById(int id);
+
+    /**
+     * プロジェクト情報の更新<br>
+     * 入力された情報が持つIDに対応した情報を更新する
+     * @param Project 更新するプロジェクト情報
+     */
+    void update(Project project);
 
     /**
      * DBに登録されているプロジェクト情報数の取得

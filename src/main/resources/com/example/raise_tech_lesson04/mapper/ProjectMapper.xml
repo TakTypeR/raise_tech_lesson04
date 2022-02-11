@@ -9,9 +9,21 @@
         select * from projects;
     </select>
 
+    <!--*: 指定されたidの全カラムを全取得    -->
+    <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">
+        select * from projects where id = #{id}
+    </select>
+
     <delete id="deleteById" parameterType="int">
         delete from projects where id = #{id}
     </delete>
+
+    <update id="update">
+        update projects
+        set
+            name = #{name}
+        where id = #{id}
+    </update>
 
     <select id="numOfProjects" resultType="_int">
         select count(*) from projects;

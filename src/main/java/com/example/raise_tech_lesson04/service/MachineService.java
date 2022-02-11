@@ -44,7 +44,7 @@ public class MachineService {
      * 入力された機材情報が持つIDに対応した機材情報を更新する
      * @param machineInfo 更新する機材情報
      */
-    public void updateMachine( MachineInfo machineInfo ) {
+    public void updateMachine(MachineInfo machineInfo) {
         machineInfoMapper.update(machineInfo);
     }
 
@@ -52,7 +52,7 @@ public class MachineService {
      * 機材情報を登録
      * @param machineInfo 追加する機材情報
      */
-    public int insertMachine( MachineInfo machineInfo ) {
+    public int insertMachine(MachineInfo machineInfo) {
         machineInfoMapper.insert(machineInfo);
         return numOfMachines();
     }

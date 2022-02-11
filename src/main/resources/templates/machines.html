@@ -4,7 +4,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
+    <!--th:insert: 共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
+    <!--th:block: 擬似的なブロックを形成できる,属性のコンテナとして使うタグ-->
+    <!--条件などを記述しているタグが出力時には消えてほしい場合に使う-->
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
 <!--id: htmlタグに設定できる属性(名前, ブロック名みたいなもの)/id: ページ内で1つ/class重複可能-->

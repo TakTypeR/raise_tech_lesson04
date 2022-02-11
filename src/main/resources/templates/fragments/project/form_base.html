@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <th:block th:fragment="base">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group">
+            <label for="project_name">プロジェクト名</label>
+            <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{name}" id="project_name">
+            <div class="invalid-feedback" th:errors="*{name}"></div>
+        </div>
+    </th:block>
+
+</body>
+</html>

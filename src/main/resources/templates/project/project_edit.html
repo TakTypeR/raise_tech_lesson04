@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--共通設定の読み込み-->
+    <th:block th:insert="fragments/base::header"></th:block>
+</head>
+<body id="page-top">
+    <div id="wrapper">
+        <!--th:block/divどちらでも良い        -->
+        <div th:insert="fragments/sidebar::sidebar"></div>
+        <!--<th:block th:insert="fragments/sidebar::sidebar"></th:block>-->
+
+        <!--main-->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content" class="container-fluid">
+                <!--project info-->
+                <div class="card shadow my-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">
+                            プロジェクト情報の編集
+                        </h6>
+                    </div>
+                    <!--classは1要素に1個まで。card-body,table-responsiveの間に何かを表記する時用に別ブロックに分ける-->
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <form th:action="@{/process_edit_project}" th:object="${project}" method="post">
+
+                                <th:block th:insert="fragments/project/form_base::base"></th:block>
+
+                                <!--!Divider-->
+                                <hr class="sidebar-divider my-4">
+
+                                <!--保存ボタン-->
+                                <button class="btn btn-primary btn-block col-md-4">
+                                    <!--iタグ: フォントをイタリック体にする-->
+                                    <i class="fas fa-edit fa-fw"></i>
+                                    <span class="text">保存</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>              <!--main-->
+    </div>
+
+</body>
+</html>
