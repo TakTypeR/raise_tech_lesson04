@@ -19,10 +19,18 @@ public class Project {
      */
     public Project(){}
 
+    /**
+     * DBのcolumnに名前を合わせる
+     * {@code @GeneratedValue}: 主キーの値を自動採番する. @Idを一緒に使う
+     * <p><b>Note: DB側でAuto Incrementを有効にする事。そうしないと、新規追加時にidエラーになる
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    /**
+     * プロジェクト名
+     */
     @NotBlank(message = "プロジェクト名を入れて下さい")
     @Size(max = 128)
     private String name;

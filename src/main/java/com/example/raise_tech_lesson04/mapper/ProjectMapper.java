@@ -1,6 +1,5 @@
 package com.example.raise_tech_lesson04.mapper;
 
-import com.example.raise_tech_lesson04.entity.MachineInfo;
 import com.example.raise_tech_lesson04.entity.Project;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -35,6 +34,12 @@ public interface ProjectMapper {
      * @param Project 更新するプロジェクト情報
      */
     void update(Project project);
+
+    /**
+     * プロジェクト情報をDBへ追加
+     * @param Project 追加するプロジェクト情報
+     */
+    void insert(Project project);
 
     /**
      * DBに登録されているプロジェクト情報数の取得

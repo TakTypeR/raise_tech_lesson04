@@ -68,4 +68,32 @@ public class ProjectController {
         return "redirect:/projects";
     }
 
+    /**
+     * プロジェクトを登録ページへ遷移する
+     * @param model ページのモデル情報
+     * @return 新規登録ページ
+     */
+    @GetMapping("/new_project")
+    public String newProject(Model model)
+    {
+        Project project = new Project();
+        model.addAttribute("project", project);
+
+        return "project/project_new";
+    }
+
+    @PostMapping("/process_new_project")
+    public String processNewProject(@Validated @ModelAttribute("project") Project project, BindingResult result)
+    {
+        //@Validatedが設定されるので、エラーの場合はhasErrors()がtrue
+        // エラーがある場合は、入力フォームページへ戻る
+        if(result.hasErrors()){
+            return "project/project_new";
+        }
+
+        projectService.insertProject(project);
+        return "redirect:/projects";
+
+    }
+
 }

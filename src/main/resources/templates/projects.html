@@ -53,11 +53,14 @@
                                             </td>
                                         </tr>
                                     </tbody>
-
                                 </table>
                             </div>
+                            <!--cardの外に記述すると枠一杯のボタンになってしまう-->
+                            <!--classにbtn-icon-splitがなくても、見た目は同じ-->
+                            <a class="btn btn-primary" th:href="@{/new_project}">
+                                <span class="text">プロジェクト登録</span>
+                            </a>
                         </div>
-
                     </div>
                 </div>
             </div>

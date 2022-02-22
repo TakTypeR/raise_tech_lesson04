@@ -45,6 +45,15 @@ public class ProjectService {
      */
     public void updateProject(Project project) { projectMapper.update(project); }
 
+    /**
+     * プロジェクト情報を登録
+     * @param Project 追加するプロジェクト情報
+     */
+    public int insertProject(Project project)
+    {
+        projectMapper.insert(project);
+        return numOfProject();
+    }
 
 
     public int numOfProject(){ return projectMapper.numOfProjects(); }

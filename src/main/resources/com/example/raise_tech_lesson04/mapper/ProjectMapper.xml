@@ -25,6 +25,11 @@
         where id = #{id}
     </update>
 
+    <insert id="insert">
+        insert into projects (name)
+        values (#{name})
+    </insert>
+
     <select id="numOfProjects" resultType="_int">
         select count(*) from projects;
     </select>
