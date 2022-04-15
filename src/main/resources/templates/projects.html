@@ -34,11 +34,13 @@
                                         <tr>
                                             <th>ＩＤ</th>
                                             <th>プロジェクト名</th>
+                                            <th>登録機材</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr th:each="project: ${projects}" th:object="${project}">
                                             <td th:text="*{id}"></td>
+                                            <td th:text="*{name}"></td>
                                             <td th:text="*{name}"></td>
                                             <!--各列に編集、削除ボタンの表示-->
                                             <td>

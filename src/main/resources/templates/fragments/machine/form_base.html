@@ -17,7 +17,8 @@
             <!--<p th:text="|selected platform id: *{platform.id}|"></p>-->
 
             <!--Bootstrapのフォームを使う場合は class="form-control"を指定-->
-            <!--selectは選択されたvalue(1個の情報)を返すので、"class構造"を持つフィールドをバインドする値が設定されない-->
+            <!--th:field="*{platform.id}"/selectは選択されたvalue(1個の情報)を返すので、
+                "class構造"を持つフィールドをバインドする値が設定されない-->
             <!--さらに、selectedが正しく機能しない-->
             <!--id: css, JavaScriptでタグを指定する時に使用/name: フォームでコントロールに付ける名前.フォームから送る場合は必須-->
             <!--<select class="form-control" name="platform.id" id="platform">  th:field未使用版-->

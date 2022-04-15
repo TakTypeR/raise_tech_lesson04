@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * プロジェクト管理クラス
@@ -34,4 +35,10 @@ public class Project {
     @NotBlank(message = "プロジェクト名を入れて下さい")
     @Size(max = 128)
     private String name;
+
+    /**
+     * このプロジェクトに所属するPCのリスト
+     */
+    List<MachineInfo> machines;
+
 }

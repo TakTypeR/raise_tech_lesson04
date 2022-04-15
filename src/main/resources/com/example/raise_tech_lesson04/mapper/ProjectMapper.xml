@@ -11,7 +11,25 @@
 
     <!--*: 指定されたidの全カラムを全取得    -->
     <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">
-        select * from projects where id = #{id}
+        <!--変数定義: set @[name]/セッション変数で接続中は値が保持されるので初期化する-->
+        <!--大文字小文字の区別なし-->
+        set @project = null;
+        <!--select into:select結果をintoへ代入-->
+        select *
+        into @project
+        from projects
+        where id = #{id}
+
+        <!--処理内容-->
+        <!--入力ID(project id)に合致するpc_idを取得(可変個)-->
+        <!--pc_idに合致するmachine_infoを取得-->
+        <!--machine_infoをProject.machinesに設定-->
+
+        set @project_pc_rel = null;
+        select *
+        into @project_pc_rel
+        from project_pc_relation
+        where project_pc_relation.project_id = #{id}
     </select>
 
     <delete id="deleteById" parameterType="int">

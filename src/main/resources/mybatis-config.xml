@@ -7,5 +7,6 @@
 <!--        <package name="com.example.raise_tech_lesson04.entity"/>-->
         <typeAlias type="com.example.raise_tech_lesson04.entity.MachineInfo" alias="MachineInfo"/>
         <typeAlias type="com.example.raise_tech_lesson04.entity.Platform" alias="Platform"/>
+        <typeAlias type="com.example.raise_tech_lesson04.entity.Project" alias="Project" />
     </typeAliases>
 </configuration>
