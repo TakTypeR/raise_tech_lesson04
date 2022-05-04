@@ -4,9 +4,32 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.raise_tech_lesson04.mapper.ProjectMapper">
+    <resultMap id="ProjectResultMap" type="com.example.raise_tech_lesson04.entity.Project">
+        <id property="id" column="projects_id"/>
+        <result property="name" column="projects_name"/>
+        <!--Javaがコレクションの場合、collectionを指定。型はofTypeを使う-->
+        <!--namespace.idで他のファイルの定義を参照可能-->
+        <collection property="machines"
+                    resultMap="com.example.raise_tech_lesson04.mapper.MachineInfoMapper.MachineInfoResultMap"/>
+    </resultMap>
+
+
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
-    <select id="selectAll" resultType="com.example.raise_tech_lesson04.entity.Project">
-        select * from projects;
+    <!--resultType: Javaクラスを指定する場合    -->
+    <!--resultMap:  MyBatisで定義したMap情報を指定する場合   -->
+    <select id="selectAll" resultMap="ProjectResultMap">
+        SELECT
+            <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
+            projects.id AS projects_id,
+            projects.name AS projects_name,
+            pcs.id AS pcs_id,
+            pcs.host_name AS pcs_host_name,
+            pcs.owner AS pcs_owner
+        FROM project_pc_relation AS relation
+        INNER JOIN projects
+        ON relation.project_id = projects.id
+        INNER JOIN pcs
+        ON relation.pc_id = pcs.id
     </select>
 
     <!--*: 指定されたidの全カラムを全取得    -->

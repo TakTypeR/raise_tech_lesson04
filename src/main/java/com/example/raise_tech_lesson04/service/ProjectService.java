@@ -19,7 +19,9 @@ public class ProjectService {
 
     public List<Project> getAllProjects()
     {
-        return projectMapper.selectAll();
+        List<Project> projectList = projectMapper.selectAll();
+        //return projectMapper.selectAll();
+        return projectList;
     }
 
     /**
