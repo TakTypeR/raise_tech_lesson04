@@ -13,46 +13,32 @@
                     resultMap="com.example.raise_tech_lesson04.mapper.MachineInfoMapper.MachineInfoResultMap"/>
     </resultMap>
 
-
-    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
-    <!--resultType: Javaクラスを指定する場合    -->
-    <!--resultMap:  MyBatisで定義したMap情報を指定する場合   -->
-    <select id="selectAll" resultMap="ProjectResultMap">
+    <sql id="selectProject">
         SELECT
-            <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
-            projects.id AS projects_id,
-            projects.name AS projects_name,
-            pcs.id AS pcs_id,
-            pcs.host_name AS pcs_host_name,
-            pcs.owner AS pcs_owner
+        <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
+        projects.id AS projects_id,
+        projects.name AS projects_name,
+        pcs.id AS pcs_id,
+        pcs.host_name AS pcs_host_name,
+        pcs.owner AS pcs_owner
         FROM project_pc_relation AS relation
         INNER JOIN projects
         ON relation.project_id = projects.id
         INNER JOIN pcs
         ON relation.pc_id = pcs.id
+    </sql>
+
+    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
+    <!--resultMap:  MyBatisで定義したMap情報を指定する場合   -->
+    <!--resultType: Javaクラスを指定する場合    -->
+    <select id="selectAll" resultMap="ProjectResultMap">
+        <include refid="selectProject"></include>
     </select>
 
     <!--*: 指定されたidの全カラムを全取得    -->
     <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">
-        <!--変数定義: set @[name]/セッション変数で接続中は値が保持されるので初期化する-->
-        <!--大文字小文字の区別なし-->
-        set @project = null;
-        <!--select into:select結果をintoへ代入-->
-        select *
-        into @project
-        from projects
-        where id = #{id}
-
-        <!--処理内容-->
-        <!--入力ID(project id)に合致するpc_idを取得(可変個)-->
-        <!--pc_idに合致するmachine_infoを取得-->
-        <!--machine_infoをProject.machinesに設定-->
-
-        set @project_pc_rel = null;
-        select *
-        into @project_pc_rel
-        from project_pc_relation
-        where project_pc_relation.project_id = #{id}
+        <include refid="selectProject"></include>
+        where projects.id = #{id}
     </select>
 
     <delete id="deleteById" parameterType="int">
