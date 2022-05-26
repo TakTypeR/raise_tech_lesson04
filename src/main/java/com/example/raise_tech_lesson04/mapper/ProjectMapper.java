@@ -4,7 +4,11 @@ import com.example.raise_tech_lesson04.entity.Project;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Optional;
 
+/**
+ * DBのProject情報へアクセスするMapper
+ */
 @Mapper
 public interface ProjectMapper {
 
@@ -18,9 +22,9 @@ public interface ProjectMapper {
     /**
      * 指定IDのプロジェクト情報を検索する
      * @param id 検索対象の機材情報ID
-     * @return プロジェクト情報
+     * @return プロジェクト情報. idが存在しな場合、{@code null}を返す
      */
-    Project findById(int id);
+    Optional<Project> findById(int id);
 
     /**
      * 指定IDの機材情報を削除する

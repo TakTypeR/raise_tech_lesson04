@@ -1,6 +1,7 @@
 package com.example.raise_tech_lesson04.entity;
 
 import lombok.Data;
+import org.apache.ibatis.type.Alias;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,10 +16,6 @@ import java.util.List;
  */
 @Data
 public class Project {
-    /**
-     * Constructors
-     */
-    public Project(){}
 
     /**
      * DBのcolumnに名前を合わせる
