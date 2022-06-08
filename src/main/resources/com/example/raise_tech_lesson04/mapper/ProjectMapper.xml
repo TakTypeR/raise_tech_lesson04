@@ -15,12 +15,12 @@
 
     <sql id="selectProject">
         SELECT
-        <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
-        projects.id AS projects_id,
-        projects.name AS projects_name,
-        pcs.id AS pcs_id,
-        pcs.host_name AS pcs_host_name,
-        pcs.owner AS pcs_owner
+            <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
+            projects.id AS projects_id,
+            projects.name AS projects_name,
+            pcs.id AS pcs_id,
+            pcs.host_name AS pcs_host_name,
+            pcs.owner AS pcs_owner
         FROM project_pc_relation AS relation
         INNER JOIN projects
         ON relation.project_id = projects.id
@@ -31,6 +31,9 @@
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
     <!--resultMap:  MyBatisで定義したMap情報を指定する場合   -->
     <!--resultType: Javaクラスを指定する場合    -->
+    <!--    <select id="selectAll" resultMap="ProjectResultMap">-->
+<!--    <select id="selectAll" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">-->
+<!--        SELECT * from projects-->
     <select id="selectAll" resultMap="ProjectResultMap">
         <include refid="selectProject"></include>
     </select>
