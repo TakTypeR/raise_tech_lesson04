@@ -11,8 +11,6 @@ import java.util.Optional;
 /**
  * プロジェクト情報に関するビジネスロジックを制御するクラス
  */
-//更新系の処理を担当するクラスにはトランザクションを明示
-@Transactional
 @Service
 public class ProjectService {
 
@@ -40,6 +38,7 @@ public class ProjectService {
      * @param id 削除するプロジェクトID
      * @return 削除後のDBのレコード数
      */
+    @Transactional
     public int deleteProject(int id)
     {
         projectMapper.deleteById(id);
@@ -51,12 +50,16 @@ public class ProjectService {
      * 入力された情報が持つIDに対応した情報を更新する
      * @param Project 更新するプロジェクト情報
      */
+    //更新系の処理を担当するクラスにはトランザクションを明示
+    //クラス全体に付けるのは非推奨
+    @Transactional
     public void updateProject(Project project) { projectMapper.update(project); }
 
     /**
      * プロジェクト情報を登録
      * @param Project 追加するプロジェクト情報
      */
+    @Transactional
     public int insertProject(Project project)
     {
         projectMapper.insert(project);
