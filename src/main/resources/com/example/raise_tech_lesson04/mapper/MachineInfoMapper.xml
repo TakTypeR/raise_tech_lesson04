@@ -33,25 +33,24 @@
     <!--bindを使えば変数定義も可能    -->
     <sql id="selectMachines">
         <!--SELECT:データ取得命令 *:全列データ指定 FROM:どの表から(スキーマ名.テーブル名)-->
-        select
-            <!--Java側のフィールドに対応したデータを返す-->
-            <!--as: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句では参照不可-->
-            pcs.id        as pcs_id,
+        SELECT            <!--Java側のフィールドに対応したデータを返す-->
+            <!--AS: テーブル＋カラムの別名定義/参照可能場所はresultMap内. on句では参照不可-->
+            pcs.id        AS pcs_id,
             <!--別テーブルにあるカラムデータを取得-->
-            platforms.id   as platforms_id,
-            platforms.name as platforms_name,
-            pcs.host_name as pcs_host_name,
-            pcs.owner     as pcs_owner
-            <!--from join on: from, jointのテーブルの結合を行う。条件はon-->
-            <!--from,join句ではスペース区切りでエイリアス可能-->
-            <!--inner join: 条件にマッチしないレコードはベーステーブルから削除される-->
-            <!--outer join: 条件にマッチしないレコードでも残す。nullが入る-->
-        from pcs
-        inner join platforms
-        on pcs.platform_id = platforms.id
+            platforms.id   AS platforms_id,
+            platforms.name AS platforms_name,
+            pcs.host_name AS pcs_host_name,
+            pcs.owner     AS pcs_owner
+            <!--FROM JOIN ON: FROM, joinでテーブルの結合を行う。条件はon-->
+            <!--FROM,join句ではスペース区切りでエイリアス可能-->
+            <!--INNER JOIN: 条件にマッチしないレコードはベーステーブルから削除される-->
+            <!--OUTER JOIN: 条件にマッチしないレコードでも残す。nullが入る-->
+        FROM pcs
+        INNER JOIN platforms
+        ON pcs.platform_id = platforms.id
     </sql>
 
-    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
+    <!--select:データを取得する(SELECT)SQLの定義 etc:INSERT, update, delete-->
     <!--リレーション関係をもつテーブルからデータの取得-->
     <select id="selectAll" resultMap="MachineInfoResultMap">
         <!--include: sqlスニペットの読み込み-->
@@ -60,20 +59,20 @@
 
     <!--指定IDの機材情報を取得-->
     <!--メソッドの引数が1つの場合parameterTypeを指定。複数の場合は指定しない-->
-    <!--メソッドの引数が1つの場合、@Paramは付与しない-->
+    <!--メソッドの引数が1つの場合、@Paramは付与しない(https://qiita.com/5zm/items/e1faac61a1d00998fb1f)-->
     <!--引数が１つで、基本データ型ならMyBatisの変数は、どんな名前でも参照可能-->
     <!--引数が複数の場合は、java側に@Paramを付与する(https://qiita.com/5zm/items/0864d6641c65f976d415)-->
     <select id="findById" parameterType="int" resultMap="MachineInfoResultMap">
         <!--include: sqlスニペットの読み込み-->
         <include refid="selectMachines"></include>
         <!--#{id}のidはjava側のid-->
-        where pcs.id = #{id}
+        WHERE pcs.id = #{id}
     </select>
 
     <!--指定IDの機材を削除-->
     <delete id="deleteById" parameterType="int">
         <!--#{id}のidはjava側のid-->
-        delete from pcs where id = #{id}
+        DELETE FROM pcs WHERE id = #{id}
     </delete>
 
     <!--機材データの更新-->
@@ -81,11 +80,11 @@
     <!--ネストの場合は#{name.host}-->
     <update id="update">
         <!--各代入行の最後の","を忘れない-->
-        update pcs set
+        UPDATE pcs SET
             host_name = #{host_name},
             owner = #{owner},
             platform_id = #{platform.id}
-        where id = #{id}
+        WHERE id = #{id}
     </update>
 
     <!--新規機材の追加-->

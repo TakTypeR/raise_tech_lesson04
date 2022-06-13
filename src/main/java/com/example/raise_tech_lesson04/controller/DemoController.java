@@ -2,6 +2,7 @@ package com.example.raise_tech_lesson04.controller;
 
 import com.example.raise_tech_lesson04.entity.UserInfo;
 import com.example.raise_tech_lesson04.mapper.UserInfoMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Controller
 public class DemoController {
     //@Autowired合致するオブジェクトを探して自動生成してくれる
-    @Autowired
-    UserInfoMapper userInfoMapper;
+    private final UserInfoMapper userInfoMapper;
 
     @RequestMapping
     public  String index(Model iModel){

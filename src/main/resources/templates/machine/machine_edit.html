@@ -3,7 +3,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--共通設定の読み込み-->
+    <!--共通設定の読み込み/th:block/divどちらでも良い-->
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
 <body id="page-top">
@@ -19,11 +19,13 @@
                     <!--machine info-->
                     <div class="card shadow my-4">
                         <div class="card-header py-3">
+                            <!--card containerのヘッダー情報-->
                             <h6 class="m-0 font-weight-bold text-primary">
                                 機材情報の編集
                             </h6>
                         </div>
                         <!--入力部分-->
+                        <!--classは1要素に1個まで。card-body,table-responsiveの間に何かを表記する時用に別ブロックに分ける-->
                         <div class="card-body">
                             <div class="table-responsive">
                                 <!--action:遷移先を指定 object:Controllerから受け取った情報をobjectで宣言-->

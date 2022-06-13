@@ -30,7 +30,8 @@
 
             <!-- Nav Item li(List Item): リストの項目。<ul></ul> or <ol></ol>の間で使用-->
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/}">
+                <!--th:href/コントローラーのリクエストURL-->
+                <a class="nav-link" th:href="@{/projects}">
                     <i class="fas fa-table"></i>
                     <span>プロジェクト一覧</span>
                 </a>
@@ -42,7 +43,7 @@
                 </a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" th:href="@{/add}">
+                <a class="nav-link" th:href="@{/new_project}">
                     <i class="fas fa-plus-square"></i>
                     <span>プロジェクト登録</span>
                 </a>

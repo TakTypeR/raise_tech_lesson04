@@ -1,5 +1,5 @@
 /**
- * 機材情報ページの遷移管理
+ * 機材情報メインページの遷移管理
  * @author Takahsia Suzuki
  */
 
@@ -7,7 +7,6 @@ package com.example.raise_tech_lesson04.controller;
 
 import com.example.raise_tech_lesson04.entity.MachineInfo;
 import com.example.raise_tech_lesson04.entity.Platform;
-import com.example.raise_tech_lesson04.mapper.MachineInfoMapper;
 import com.example.raise_tech_lesson04.mapper.PlatformMapper;
 import com.example.raise_tech_lesson04.service.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +22,21 @@ import javax.crypto.Mac;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * 機材情報ページの遷移を管理するクラス
  */
-@RequiredArgsConstructor
+//@RequiredArgsConstructor: 必須のメンバ（finalのメンバ）へ値をセットするための引数付きコンストラクタを自動生成する。
+@RequiredArgsConstructor            //Lombok
 @Controller
 public class MachinesController {
 
-    //@Autowired合致するオブジェクトを探して自動生成してくれる
-    @Autowired
-    MachineService machineService;
-    @Autowired
-    PlatformMapper platformMapper;
+    private final MachineService machineService;
+    private final PlatformMapper platformMapper;
+
+    //ラムダ式ではスタック変数へは代入出来ないのでフィールド宣言
+    String nextPage;
 
     /**
      * 機材リストメインページを表示する
@@ -63,7 +64,7 @@ public class MachinesController {
      * @param id 削除対象の機材情報ID
      * @return 削除後の遷移先機材リストページ
      */
-    @GetMapping("/delete/{id}")
+    @GetMapping("/machine/delete/{id}")
     public String deleteMachine(@PathVariable("id") int id)
     {
         //更新したＤＢで持って、同ページを再表示
@@ -78,16 +79,19 @@ public class MachinesController {
      * @param model 機材リストデータを管理するモデル
      * @return 更新ページ名
      */
-    @GetMapping("/edit/{id}")
+    @GetMapping("/machine/edit/{id}")
     public String editMachine(@PathVariable("id") int id, Model model)
     {
         //プラットフォーム情報のプルダウンメニューを表示する為、viewへ渡す
         model.addAttribute( "platformItems", getPlatformItems() );
         //遷移先のページで機材情報を表示する為、機材情報を取得して渡す
-        MachineInfo m = machineService.getMachine(id);
-        model.addAttribute("machine", m);
+        //nullの場合は、とりあえず遷移しない
+        Optional<MachineInfo> m = machineService.getMachine(id);
+        nextPage = "machine/machine_edit";
+        m.ifPresentOrElse(v -> model.addAttribute("machine", m.get()), ()->nextPage="machines");
+        //model.addAttribute("machine", m);
 
-        return "machine/machine_edit";
+        return nextPage;
     }
 
     /**

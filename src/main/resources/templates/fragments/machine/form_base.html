@@ -13,13 +13,12 @@
         <!--th:with="selectedPlatformId=*{platform.id}: そのタグの子要素内で有効なローカル変数の宣言。${}で参照-->
         <div class="form-group">
             <!--デバッグ等値表示：th:text="${var}"  固定文字を一緒に表示する場合は||で囲む-->
-            <!--for:input要素と紐づけを行うために名前を付ける-->
-            <!--forのメリット: https://style.potepan.com/articles/20037.html-->
             <label>プラットフォーム</label>
             <!--<p th:text="|selected platform id: *{platform.id}|"></p>-->
 
             <!--Bootstrapのフォームを使う場合は class="form-control"を指定-->
-            <!--selectは選択されたvalue(1個の情報)を返すので、"class構造"を持つフィールドをバインドする値が設定されない-->
+            <!--th:field="*{platform.id}"/selectは選択されたvalue(1個の情報)を返すので、
+                "class構造"を持つフィールドをバインドする値が設定されない-->
             <!--さらに、selectedが正しく機能しない-->
             <!--id: css, JavaScriptでタグを指定する時に使用/name: フォームでコントロールに付ける名前.フォームから送る場合は必須-->
             <!--<select class="form-control" name="platform.id" id="platform">  th:field未使用版-->
@@ -31,9 +30,16 @@
         </div>
 
         <div class="form-group">
+            <!--for:input要素と紐づけを行うために名前を付ける-->
+            <!--forのメリット: https://style.potepan.com/articles/20037.html-->
             <label for="host_name">ホスト名</label>
             <!--errorclass: エラー時だけスタイルを切り替える-->
+            <!--エラーがあったらclassにis-invalidを追加（＝エラーがあるときだけ適用するCSSを切り替えられる-->
+            <!--th:field="*{host_name}"　このフィールドがエラーだったらerrorclassが適用されるので、-->
+            <!--th:errorclassを使いたい時は、inputタグ内にname属性か、th:fieldを設定する-->
+            <!--参考: https://note.com/yucco72/n/nc328d79809d5-->
             <input type="text" class="form-control" th:errorclass="is-invalid" th:field="*{host_name}" id="host_name">
+            <!--エラーメッセージがある場合に↓が表示される-->
             <div class="invalid-feedback" th:errors="*{host_name}"></div>
         </div>
         <div class="form-group">

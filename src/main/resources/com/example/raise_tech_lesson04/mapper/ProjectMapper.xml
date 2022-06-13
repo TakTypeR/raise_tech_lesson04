@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--DTD:Document type Definition(文書型の定義):使用出来るタグや属性等の情報の定義-->
+<!--Mapper.xmlはjava側のinterfaceと同一パッケージ内に配置する-->
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.raise_tech_lesson04.mapper.ProjectMapper">
+    <resultMap id="ProjectResultMap" type="com.example.raise_tech_lesson04.entity.Project">
+        <id property="id" column="projects_id"/>
+        <result property="name" column="projects_name"/>
+        <!--Javaがコレクションの場合、collectionを指定。型はofTypeを使う-->
+        <!--namespace.idで他のファイルの定義を参照可能-->
+        <collection property="machines"
+                    resultMap="com.example.raise_tech_lesson04.mapper.MachineInfoMapper.MachineInfoResultMap"/>
+    </resultMap>
+
+    <sql id="selectProject">
+        SELECT
+            <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
+            projects.id AS projects_id,
+            projects.name AS projects_name,
+            pcs.id AS pcs_id,
+            pcs.host_name AS pcs_host_name,
+            pcs.owner AS pcs_owner
+        FROM project_pc_relation AS relation
+        INNER JOIN projects
+        ON relation.project_id = projects.id
+        INNER JOIN pcs
+        ON relation.pc_id = pcs.id
+    </sql>
+
+    <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
+    <!--resultMap:  MyBatisで定義したMap情報を指定する場合   -->
+    <!--resultType: Javaクラスを指定する場合    -->
+    <!--    <select id="selectAll" resultMap="ProjectResultMap">-->
+<!--    <select id="selectAll" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">-->
+<!--        SELECT * from projects-->
+    <select id="selectAll" resultMap="ProjectResultMap">
+        <include refid="selectProject"></include>
+    </select>
+
+    <!--*: 指定されたidの全カラムを全取得    -->
+    <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">
+        <include refid="selectProject"></include>
+        where projects.id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        delete from projects where id = #{id}
+    </delete>
+
+    <update id="update">
+        update projects
+        set
+            name = #{name}
+        where id = #{id}
+    </update>
+
+    <insert id="insert">
+        insert into projects (name)
+        values (#{name})
+    </insert>
+
+    <select id="numOfProjects" resultType="_int">
+        select count(*) from projects;
+    </select>
+
+</mapper>
+

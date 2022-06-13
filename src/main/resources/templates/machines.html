@@ -1,12 +1,22 @@
 <!DOCTYPE html>
+
+<!--参考書籍: Spring Boot2入門::6.3/CRUD操作が出来る様にする-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <!--共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
+    <!--th:insert: 共通設定等の読み込みheader includeみたいなもの(fragment/base.html)-->
+    <!--th:block: 擬似的なブロックを形成できる,属性のコンテナとして使うタグ-->
+    <!--条件などを記述しているタグが出力時には消えてほしい場合に使う-->
     <th:block th:insert="fragments/base::header"></th:block>
 </head>
+<!--id: htmlタグに設定できる属性(名前, ブロック名みたいなもの)/id: ページ内で1つ/class重複可能-->
+<!--id, classをキーにしてcssを適用したり、div要素のデータを取得したりが可能-->
+<!--あくまで設定機能がメインで、参照機能はサブ-->
+<!--参考-->
+<!--https://www.sejuku.net/blog/85629-->
+<!--https://web-camp.io/magazine/archives/12439-->
 <body id="page-top">
-    <!--page wrapper-->
+    <!--page wrapper:css-->
     <!-- 説明:https://coliss.com/articles/build-websites/operation/css/styling-layout-wrappers-in-css.html -->
     <div id="wrapper">
         <th:block th:insert="fragments/sidebar::sidebar"></th:block>
@@ -15,9 +25,10 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <div class="container-fluid">
-
                     <!--機材情報リスト-->
+                    <!--cardコンポーネント:カードの様に縦型で上段/下段の構成。上段:画像 下段:文章-->
                     <div class="card shadow my-4">
+                        <!--上段(header):アイテム数/下段:アイテムリスト-->
                         <div class="card-header py-3">
                             <!--textに文字列を埋め込む場合は | or 'で囲む-->
                             <h6 class="m-0 font-weight-bold text-primary" th:text="|機材リスト(${numOfMachines})|">
@@ -53,6 +64,7 @@
                                         <!--th:each="var: ${}"/ループタグ-->
                                         <!--${}:EL式によるオブジェクト参照 ${式}:${10*2}->20-->
                                         <!--th:object以下で*を変数のショートカットとして利用可能-->
+                                        <!--td(table data):テーブルセルの内容を指定。データの場合tdを使用-->
                                         <tr th:each="info: ${machineInfo}" th:object="${info}">
                                             <!--td(table data):表の内容を指定。-->
                                             <td th:text="*{id}"></td>
@@ -62,12 +74,13 @@
                                             <td th:text="*{owner}"></td>
                                             <!--各列に編集、削除ボタンの表示-->
                                             <td>
-                                                <a class="btn btn-primary btn-icon-split" th:href="@{/edit/{id}(id=*{id})}">
+                                                <!--id=*{id}: id->link内のid *{id}->info.id-->
+                                                <a class="btn btn-primary btn-icon-split" th:href="@{/machine/edit/{id}(id=*{id})}">
                                                     <!--span: divのようにグループ化する。divと違い要素の一部をグループ化する-->
                                                     <!--divはブロックレベルでのグループ化なので前後に改行が入る-->
                                                     <span class="text">編集</span>
                                                 </a>
-                                                <a class="btn btn-danger btn-icon-split" th:href="@{/delete/{id}(id=*{id})}">
+                                                <a id="delete_target" class="btn btn-danger btn-icon-split" th:href="@{/machine/delete/{id}(id=*{id})}">
                                                     <span class="text">削除</span>
                                                 </a>
                                             </td>
@@ -84,12 +97,19 @@
                         </div>
 
                     </div>      <!--機材情報リスト-->
-
                 </div>
             </div>
         </div>  <!--main-->
     </div>
-
+    <!--BootstrapのJavascriptは一番下に記述する-->
     <th:block th:insert="fragments/base::scripts"></th:block>
+    <!--JSをロードする時は↑の外側へ記述/path:resources/staticからの相対パス-->
+    <!--ロードタイミング-->
+    <!--window.onloadは画像を含めた全てのオブジェクトのロード完了後-->
+    <!--画像等の重いデータ前 and ページロード後にしたい時は</body>前にロードする-->
+    <!--ページロード前の場合は、head要素に記述-->
+    <!--参考: https://www.nishishi.com/javascript-tips/onload-page.html -->
+    <script src="/js/common.js"></script>
+
 </body>
 </html>
