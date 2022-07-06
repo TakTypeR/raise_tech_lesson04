@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -77,13 +78,15 @@ public class MachineServiceTest {
 
         MachineInfo m = new MachineInfo(new Platform(10, "WIN"));
         m.setId(10); m.setHost_name("PC0002"); m.setOwner("鈴木");
-        when(machineInfoMapper.findById(10)).thenReturn(m);
+        when(machineInfoMapper.findById(10)).thenReturn(Optional.of(m));
 
-        m = machineServiceMock.getMachine(10);
+        Optional<MachineInfo> mOpt = machineServiceMock.getMachine(10);
         //色々な検証メソッドの例
-        assertThat(m.getPlatformName(), is("WIN"));
-        assertThat(m.getHost_name(), equalTo("PC0002"));
-        assertThat(m, hasProperty("owner", equalTo("鈴木")));
+        mOpt.ifPresent(machine->{
+            assertThat(machine.getPlatformName(), is("WIN"));
+            assertThat(machine.getHost_name(), equalTo("PC0002"));
+            assertThat(machine, hasProperty("owner", equalTo("鈴木")));
+        });
     }
 
     /**
@@ -130,10 +133,11 @@ public class MachineServiceTest {
             machineService.updateMachine(m);
 
             //正しく更新されたか？
-            MachineInfo updatedMachine = machineService.getMachine(id);
-            assertThat(updatedMachine.getHost_name(), is("SV1111"));
-            assertThat(updatedMachine.getOwner(), is("Tester"));
-
+            Optional<MachineInfo> updatedMachine = machineService.getMachine(id);
+            if(updatedMachine.isPresent()){
+                assertThat(updatedMachine.get().getHost_name(), is("SV1111"));
+                assertThat(updatedMachine.get().getOwner(), is("Tester"));
+            }
             //元のデータに戻す
             m.setHost_name(hostName);
             m.setOwner(owner);
