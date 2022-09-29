@@ -9,23 +9,28 @@
         <result property="name" column="projects_name"/>
         <!--Javaがコレクションの場合、collectionを指定。型はofTypeを使う-->
         <!--namespace.idで他のファイルの定義を参照可能-->
+        <!--ofType: コレクションの要素の型を指定。JavaType="ArrayList!とは異なる"-->
+        <!--ArrayListは予約後: https://qiita.com/opengl-8080/items/a9b5d4038f19d4813ee6-->
+        <!--columnPrefix: resultMapで指定している名前に重複回避用のprefixがついている場合に、本来の名前になるように差分を指定-->
         <collection property="machines"
+                    ofType="com.example.raise_tech_lesson04.entity.MachineInfo"
                     resultMap="com.example.raise_tech_lesson04.mapper.MachineInfoMapper.MachineInfoResultMap"/>
     </resultMap>
 
     <sql id="selectProject">
-        SELECT
+        select
             <!--JOINした際の同名カラム名を避けるためASで指定(resultMap内で参照)-->
-            projects.id AS projects_id,
-            projects.name AS projects_name,
-            pcs.id AS pcs_id,
-            pcs.host_name AS pcs_host_name,
-            pcs.owner AS pcs_owner
-        FROM project_pc_relation AS relation
-        INNER JOIN projects
-        ON relation.project_id = projects.id
-        INNER JOIN pcs
-        ON relation.pc_id = pcs.id
+            prj.id as projects_id,
+            prj.name as projects_name,
+            pcs.id as pcs_id,
+            pcs.host_name as pcs_host_name,
+            pcs.owner as pcs_owner
+        from project_pc_relation rel
+        inner join projects prj
+        on rel.project_id = prj.id
+        inner join pcs
+        on rel.pc_id = pcs.id
+        order by prj.id;
     </sql>
 
     <!--select:データを取得する(SELECT)SQLの定義 etc:insert, update, delete-->
@@ -35,12 +40,12 @@
 <!--    <select id="selectAll" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">-->
 <!--        SELECT * from projects-->
     <select id="selectAll" resultMap="ProjectResultMap">
-        <include refid="selectProject"></include>
+        <include refid="selectProject"/>
     </select>
 
     <!--*: 指定されたidの全カラムを全取得    -->
     <select id="findById" parameterType="int" resultType="com.example.raise_tech_lesson04.entity.Project">
-        <include refid="selectProject"></include>
+        <include refid="selectProject"/>
         where projects.id = #{id}
     </select>
 

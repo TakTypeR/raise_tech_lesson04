@@ -89,8 +89,9 @@
 
     <!--新規機材の追加-->
     <!--パラメータが1個の場合、明示しなくても各メンバを#{}で参照可能-->
-    <!--ID管理を自動で行う場合、DB側でAuto Incrementを有効にする事。
+    <!--id管理を自動で行う場合、DB側でAuto Incrementを有効にする事。
         そうしないと、新規追加時にidエラーになる(Field 'id' doesn't have a default value)-->
+    <!--id自動採番: Auto Increment以外に、useGenerateKeys=true, keyPropertyを使う事も出来る-->
     <insert id="insert">
         <!--テーブルpcsの各要素に対して値を設定する-->
         INSERT INTO pcs (host_name, owner, platform_id)

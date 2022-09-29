@@ -39,7 +39,7 @@ public class ProjectController {
     public String projects(Model iModel)
     {
         //DBから取得したデータを対応するリソースに渡すためにアトリビュートを設定
-        List<Project> plist = projectService.getAllProjects();
+         List<Project> plist = projectService.getAllProjects();
         iModel.addAttribute("projects", plist);
 
         iModel.addAttribute("numOfProjects", plist.size());
