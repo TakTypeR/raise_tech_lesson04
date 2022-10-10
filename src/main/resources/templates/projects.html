@@ -28,8 +28,8 @@
                                     該当データがありません
                                 </div>
 
-                                <table class="table table-bordered table-striped table-condensed"
-                                       th:if="${projects.size()>0}">
+                                <!--&gt; 大なり記号(>)は閉じタグと認識される為、別名で指定 -->
+                                <table class="table table-bordered table-striped table-condensed" th:if="${projects.size()} &gt; 0">
                                     <thead>
                                         <tr>
                                             <th>ＩＤ</th>
@@ -41,7 +41,16 @@
                                         <tr th:each="project: ${projects}" th:object="${project}">
                                             <td th:text="*{id}"></td>
                                             <td th:text="*{name}"></td>
-                                            <td th:text="*{name}"></td>
+                                            <!--??not working-->
+<!--                                            <td th:if="${*{machines}.size()} &gt; 0">-->
+                                            <td>
+                                                <!--??th:remove="tag": 無いと各機材単位で改行されるので不要なタグを削除-->
+                                                <div th:each="machine: *{machines}" th:remove="tag" th:text="${machine.host_name}"></div>&nbsp
+                                                <!--??各要素をdivで囲むと改行される？-->
+<!--                                                <div th:each="machine: *{machines}" th:remove="tag" >-->
+<!--                                                    <div th:text="${machine.host_name}"></div>&nbsp-->
+<!--                                                </div>-->
+                                            </td>
                                             <!--各列に編集、削除ボタンの表示-->
                                             <td>
                                                 <a class="btn btn-primary btn-icon-split" th:href="@{/project/edit/{id}(id=*{id})}">

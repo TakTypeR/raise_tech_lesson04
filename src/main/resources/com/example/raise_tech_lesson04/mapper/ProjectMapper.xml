@@ -11,7 +11,7 @@
         <!--namespace.idで他のファイルの定義を参照可能-->
         <!--ofType: コレクションの要素の型を指定。JavaType="ArrayList!とは異なる"-->
         <!--ArrayListは予約後: https://qiita.com/opengl-8080/items/a9b5d4038f19d4813ee6-->
-        <!--columnPrefix: resultMapで指定している名前に重複回避用のprefixがついている場合に、本来の名前になるように差分を指定-->
+        <!--columnPrefix(今回は不要): resultMapで指定している名前に重複回避用のprefixがついている場合に、本来の名前になるように差分を指定-->
         <collection property="machines"
                     ofType="com.example.raise_tech_lesson04.entity.MachineInfo"
                     resultMap="com.example.raise_tech_lesson04.mapper.MachineInfoMapper.MachineInfoResultMap"/>
