@@ -41,16 +41,27 @@
                                         <tr th:each="project: ${projects}" th:object="${project}">
                                             <td th:text="*{id}"></td>
                                             <td th:text="*{name}"></td>
-                                            <!--??not working-->
-<!--                                            <td th:if="${*{machines}.size()} &gt; 0">-->
                                             <td>
-                                                <!--??th:remove="tag": 無いと各機材単位で改行されるので不要なタグを削除-->
-                                                <div th:each="machine: *{machines}" th:remove="tag" th:text="${machine.host_name}"></div>&nbsp
-                                                <!--??各要素をdivで囲むと改行される？-->
-<!--                                                <div th:each="machine: *{machines}" th:remove="tag" >-->
-<!--                                                    <div th:text="${machine.host_name}"></div>&nbsp-->
-<!--                                                </div>-->
-                                            </td>
+                                                <!--work-->
+<!--                                            <th:block th:if="${#lists.size(project.machines) &gt; 0}">-->
+                                                <!--work: ＊を使ったフィールドメンバ参照で、メソッドをコール-->
+<!--                                            <th:block th:if="*{#lists.size(machines) &gt; 0}">-->
+                                                <!--work-->
+<!--                                            <th:block th:if="${project.machines.size() &gt; 0}">-->
+                                                <!--work:  ＊を使ったフィールドメンバ参照で、メソッドをコール-->
+                                                <!--参考: https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf_ja.html の14.2の項目-->
+                                                <!--th:block:属性のコンテナ用タグ-->
+                                                <th:block th:if="*{machines.size() &gt; 0}">
+                                                    <!--th:remove="tag": 無いと各機材単位で改行されるので不要なタグを削除-->
+<!--                                                    <div th:each="machine: *{machines}" th:remove="tag" th:text="${machine.host_name}"></div>&nbsp-->
+                                                    <!--span:グループ化しつつ、改行しない。各要素をdivで囲むと1行全体を使う為(改行される)、ここでは使わない-->
+                                                    <!--th:remove="tag"は不必要-->
+                                                    <span th:each="machine: *{machines}" th:text="${machine.host_name}+'&nbsp'"></span>
+                                                </th:block>
+                                                <!--else/elseifはないので条件で判定-->
+                                                <th:block th:if="*{machines.size() == 0}">
+                                                    登録機材なし
+                                                </th:block>
                                             <!--各列に編集、削除ボタンの表示-->
                                             <td>
                                                 <a class="btn btn-primary btn-icon-split" th:href="@{/project/edit/{id}(id=*{id})}">

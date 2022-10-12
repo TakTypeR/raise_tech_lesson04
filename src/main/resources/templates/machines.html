@@ -65,7 +65,7 @@
                                         <!--${}:EL式によるオブジェクト参照 ${式}:${10*2}->20-->
                                         <!--th:object以下で*を変数のショートカットとして利用可能-->
                                         <!--td(table data):テーブルセルの内容を指定。データの場合tdを使用-->
-                                        <tr th:each="info: ${machineInfo}" th:object="${info}">
+                                        <tr th:each="machine: ${machineInfo}" th:object="${machine}">
                                             <!--td(table data):表の内容を指定。-->
                                             <td th:text="*{id}"></td>
                                             <!--サブフィールドは.で参照可-->
